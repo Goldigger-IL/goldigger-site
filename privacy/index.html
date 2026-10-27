@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מדיניות פרטיות · גולדיגר</title>
+<meta name="description" content="מדיניות הפרטיות של גולדיגר: איזה מידע נאסף, למה, ומה הזכויות שלך.">
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
+<style>:root{--bg:#FFFDF8;--ink:#15130F;--muted:#5E574C;--line:#E7E0D2;--gold:#E8B84A;--gold-deep:#8A6210;--cream:#FBF1DC;--card:#fff;--great:#116B35;--great-bg:#E2F3E7;--fair-bg:#FBF1DC;--fair:#7A5A12;--high-bg:#FBE4E2;--high:#A1261B}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,"Arial Hebrew",Arial,sans-serif;font-size:17px;line-height:1.6}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;inset-inline-start:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;z-index:9;text-decoration:none}
+.skip:focus{top:12px}
+.top{max-width:1080px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:24px;text-decoration:none}
+.g{width:36px;height:36px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-size:18px}
+.foot{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 40px;text-align:center;color:var(--muted);font-size:14px}
+.foot nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-bottom:8px}
+.foot a{color:var(--ink);font-weight:500}
+.doc{max-width:760px;margin:0 auto;padding:8px 20px}
+.doc h1{font-size:clamp(30px,6vw,40px);font-weight:800;margin:8px 0 18px;line-height:1.2}
+.doc h2{font-size:21px;font-weight:800;margin:30px 0 8px}
+.doc p,.doc li{color:#2a261f}
+.doc ul{padding-inline-start:22px}
+.doc li{margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 10px;text-align:start;vertical-align:top;min-width:110px}
+.doc thead th{background:var(--cream)}
+.doc .meta{color:var(--muted);font-size:14px}
+/* דף הבית */
+.hero{max-width:1080px;margin:0 auto;padding:24px 20px 8px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(36px,7vw,60px);line-height:1.08;font-weight:800;margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--gold) 62%)}
+.lead{font-size:19px;color:var(--muted);margin:0 0 22px;max-width:34em}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700}
+.free{margin-top:14px;color:var(--muted);font-size:15px}
+.free strong{color:var(--ink)}
+.phone{background:var(--cream);border-radius:28px;padding:22px;display:grid;gap:12px}
+.vcard{background:#fff;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;border:1px solid var(--line)}
+.vcard img{width:58px;height:58px;flex:none}
+.vcard b{display:block;font-size:17px}
+.vcard span{font-size:14px;color:var(--muted)}
+.vcard .price{margin-inline-start:auto;font-weight:800;font-size:20px;white-space:nowrap;direction:ltr}
+.tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 10px;border-radius:999px;margin-top:2px}
+.t-great{background:var(--great-bg);color:var(--great)}.t-fair{background:var(--fair-bg);color:var(--fair)}.t-high{background:var(--high-bg);color:var(--high)}
+.section{max-width:1080px;margin:0 auto;padding:44px 20px 0}
+.section h2{font-size:clamp(26px,4.5vw,34px);font-weight:800;margin:0 0 18px;line-height:1.2}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gold);font-weight:800;margin-bottom:10px}
+.steps b{display:block;font-size:19px;margin-bottom:4px}
+.steps p{margin:0;color:var(--muted)}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.trust div{padding:4px 0}
+.trust b{display:block;font-size:18px}
+.trust p{margin:4px 0 0;color:var(--muted)}
+.shops{background:var(--ink);color:#fff;border-radius:28px;padding:30px;display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center}
+.shops h2{color:#fff;margin-bottom:10px}
+.shops p{color:#E9E2D4;margin:0}
+.shops ul{margin:12px 0 0;padding-inline-start:20px;color:#E9E2D4}
+.cta{display:inline-block;text-align:center;padding:14px 22px;border-radius:999px;background:var(--gold);color:var(--ink);font-weight:800;text-decoration:none}
+@media (max-width:820px){.hero,.shops{grid-template-columns:1fr}.steps,.trust{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+<header class="top"><a class="brand" href="../" aria-label="גולדיגר — לדף הבית"><span class="g" aria-hidden="true">G</span>גולדיגר</a></header>
+<main id="main" class="doc"><h1>מדיניות פרטיות</h1>
+<p><span dir="rtl">עודכן: 27.10.2026</span></p>
+<h2 id="מי-אנחנו"><span dir="rtl">1. מי אנחנו</span></h2>
+<p><span dir="rtl">גולדיגר היא אפליקציה לקנייה ולמכירה של תכשיטי זהב בין אנשים פרטיים וחנויות בישראל. את האפליקציה מפעיל בעל גולדיגר (השם המלא, מספר העוסק והכתובת יפורסמו כאן לפני הפתיחה לקהל) ("גולדיגר", "אנחנו"), שהוא בעל השליטה במאגר המידע של האפליקציה.</span></p>
+<p><span dir="rtl">כאן מוסבר איזה מידע אנחנו אוספים, למה, למי הוא מועבר, כמה זמן הוא נשמר ואילו זכויות יש לך. כתבנו בשפה פשוטה. אם משהו לא ברור, כתבו לנו: <a href="mailto:didishalman@gmail.com">didishalman@gmail.com</a>.</span></p>
+<h2 id="העיקרון-שלנו-כמה-שפחות"><span dir="rtl">2. העיקרון שלנו: כמה שפחות</span></h2>
+<p><span dir="rtl">בזהב, המידע הרגיש ביותר הוא מי מחזיק זהב, כמה, ואיפה. לכן:</span></p>
+<ul>
+<li><p><span dir="rtl">אנחנו לא שואלים על כתובת מגורים. מספיק אזור, למשל "רמת גן".</span></p></li>
+<li><p><span dir="rtl">מיקום ה־GPS נמחק מכל תמונה לפני שהיא עולה לשרת.</span></p></li>
+<li><p><span dir="rtl">מספר הטלפון שלך מוסתר מכל המשתמשים, עד ששני הצדדים בוחרים לשתף אותו.</span></p></li>
+<li><p><span dir="rtl">פרטי כרטיס אשראי לא עוברים דרכנו בכלל. התשלומים באפליקציה נעשים דרך אפל.</span></p></li>
+</ul>
+<h2 id="איזה-מידע-אנחנו-אוספים-ולמה"><span dir="rtl">3. איזה מידע אנחנו אוספים, ולמה</span></h2>
+<p><span dir="rtl">בטבלה: מה נאסף, האם חובה למסור אותו, ולאיזו מטרה. אין חובה חוקית למסור לנו מידע; מה שמסומן "חובה" נדרש כדי להשתמש באפליקציה.</span></p>
+<table style="width:98%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 23%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong><span dir="rtl">מידע</span></strong></th>
+<th><strong><span dir="rtl">מה בדיוק</span></strong></th>
+<th><strong><span dir="rtl">חובה?</span></strong></th>
+<th><strong><span dir="rtl">למה</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><span dir="rtl">הרשמה</span></strong></td>
+<td><span dir="rtl">מספר טלפון ושם פרטי</span></td>
+<td><span dir="rtl">חובה</span></td>
+<td><span dir="rtl">לזהות אותך, לשלוח קוד כניסה, ולוודא שכל משתמש הוא אדם אמיתי.</span></td>
+</tr>
+
+<tr class="odd">
+<td><strong><span dir="rtl">פרופיל</span></strong></td>
+<td><span dir="rtl">אזור; תמונה שלך (אדם פרטי) או לוגו העסק (חנות או סוחר); ואם אתה מוכר פרטי או סוחר</span></td>
+<td><span dir="rtl">אזור — חובה; תמונה שלך — חובה לאדם פרטי; לוגו — רשות</span></td>
+<td><span dir="rtl">להציג אותך, כדי שקונים ומוכרים ידעו עם מי הם נפגשים, ולהראות פריטים באזור שלך.</span></td>
+</tr>
+<tr class="even">
+<td><strong><span dir="rtl">סוחרים</span></strong></td>
+<td><span dir="rtl">שם העסק, מספר עוסק או ח״פ, כתובת החנות, וחיבור לעמוד העסקי באינסטגרם או בפייסבוק אם בחרת</span></td>
+<td><span dir="rtl">חובה לסוחר</span></td>
+<td><span dir="rtl">לוודא שזה עסק אמיתי ולהציג את החנות.</span></td>
+</tr>
+<tr class="odd">
+<td><strong><span dir="rtl">אימות זהות</span></strong></td>
+<td><span dir="rtl">סלפי, ובחלק מהמקרים תעודה מזהה, נבדקים אצל ספק אימות חיצוני — רק אחרי שאישרת במפורש במסך האימות. אנחנו מקבלים ממנו רק תשובה (אומת או לא) ולא שומרים את התמונות</span></td>
+<td><span dir="rtl">רשות; נדרש ממי שמפרסם הרבה פריטים יקרים</span></td>
+<td><span dir="rtl">למנוע הונאות, ולהראות לאחרים שאתה מאומת.</span></td>
+</tr>
+<tr class="even">
+<td><strong><span dir="rtl">פריטים</span></strong></td>
+<td><span dir="rtl">תמונות, סוג, קראט, משקל, מידה, מצב (חדש או וינטג׳) ומחיר</span></td>
+<td><span dir="rtl">חובה למי שמפרסם</span></td>
+<td><span dir="rtl">להציג את הפריט ולחשב השוואת מחיר ("שוקי").</span></td>
+</tr>
+<tr class="odd">
+<td><strong><span dir="rtl">פעילות</span></strong></td>
+<td><span dir="rtl">פריטים שאהבת או דילגת עליהם, בקשות קנייה, הודעות בצ׳אט, פגישות, דירוגים (כוכבים ותגיות)</span></td>
+<td><span dir="rtl">נוצר מהשימוש</span></td>
+<td><span dir="rtl">להפעיל את השירות, ולבדוק דיווחים על הונאה.</span></td>
+</tr>
+<tr class="even">
+<td><strong><span dir="rtl">עסקאות</span></strong></td>
+<td><span dir="rtl">כשמסמנים "נמכר": סוג, קראט, משקל, מחיר סופי ותאריך</span></td>
+<td><span dir="rtl">המחיר הסופי — רשות</span></td>
+<td><span dir="rtl">לחשב מחירי שוק (סעיף 6).</span></td>
+</tr>
+<tr class="odd">
+<td><strong><span dir="rtl">תשלומים</span></strong></td>
+<td><span dir="rtl">אישור מאפל שהתשלום בוצע, ועל מה</span></td>
+<td><span dir="rtl">נוצר מהשימוש</span></td>
+<td><span dir="rtl">לפתוח לך את מה ששילמת עליו.</span></td>
+</tr>
+<tr class="even">
+<td><strong><span dir="rtl">דיווחים וחסימות</span></strong></td>
+<td><span dir="rtl">מי דיווח, על מה, ומה נעשה</span></td>
+<td><span dir="rtl">נוצר מהשימוש</span></td>
+<td><span dir="rtl">לשמור על המשתמשים ולטפל בהונאות.</span></td>
+</tr>
+<tr class="odd">
+<td><strong><span dir="rtl">מידע טכני</span></strong></td>
+<td><span dir="rtl">סוג מכשיר, גרסת האפליקציה, מזהה להתראות, ותקלות</span></td>
+<td><span dir="rtl">נוצר מהשימוש</span></td>
+<td><span dir="rtl">לשלוח התראות ולתקן תקלות.</span></td>
+</tr>
+<tr class="even">
+<td><strong><span dir="rtl">דיוור</span></strong></td>
+<td><span dir="rtl">אם הסכמת לקבל הודעות שיווקיות (SMS, מייל או התראה באפליקציה), ומתי</span></td>
+<td><span dir="rtl">רשות</span></td>
+<td><span dir="rtl">לשלוח פרסומות רק למי שהסכים.</span></td>
+</tr>
+</tbody>
+</table>
+<p><span dir="rtl"><strong>אם לא מוסרים:</strong> בלי מספר טלפון אי אפשר להירשם. בלי מידע שמסומן "רשות" האפליקציה עובדת, אבל בלי הסימונים שמראים לאחרים שאתה מאומת.</span></p>
+<h2 id="במה-אנחנו-משתמשים-במידע"><span dir="rtl">4. במה אנחנו משתמשים במידע</span></h2>
+<ul>
+<li><p><span dir="rtl">להפעיל את האפליקציה: הרשמה, פיד, התאמות, צ׳אט ופגישות.</span></p></li>
+<li><p><span dir="rtl">לחשב את "שוקי": השוואה של מחיר פריט לממוצע של פריטים דומים. חנויות מושוות לחנויות, ומוכרים פרטיים לפרטיים.</span></p></li>
+<li><p><span dir="rtl">לשמור על המשתמשים: לזהות הונאות, חשבונות מזויפים וניצול לרעה, ולטפל בדיווחים.</span></p></li>
+<li><p><span dir="rtl">לגבות תשלומים ולתת שירות.</span></p></li>
+<li><p><span dir="rtl">לשלוח התראות שירות, כמו מאץ׳, הודעה חדשה, או "האם העסקה בוצעה?".</span></p></li>
+<li><p><span dir="rtl">לשלוח הודעות שיווקיות, גם התראות באפליקציה — רק אם הסכמת בנפרד, ותמיד עם דרך פשוטה להסיר.</span></p></li>
+<li><p><span dir="rtl">לעמוד בחובות לפי חוק.</span></p></li>
+</ul>
+<p><span dir="rtl">אנחנו לא מוכרים מידע אישי, ולא משתמשים בו לפרסום ממוקד של אחרים.</span></p>
+<h2 id="מה-רואים-משתמשים-אחרים"><span dir="rtl">5. מה רואים משתמשים אחרים</span></h2>
+<ul>
+<li><p><span dir="rtl"><strong>כל משתמש:</strong> שם פרטי, אזור, דירוג ומספר עסקאות, סימוני אימות, והפריטים שפרסמת.</span></p></li>
+<li><p><span dir="rtl"><strong>סוחרים:</strong> גם שם העסק, הכתובת ודף החנות. זה פרופיל עסקי ציבורי.</span></p></li>
+<li><p><span dir="rtl"><strong>מוכרים פרטיים:</strong> תמונת הפרופיל מוצגת רק למי שיש איתו מאץ׳.</span></p></li>
+<li><p><span dir="rtl"><strong>מספר טלפון:</strong> לאף אחד, עד ששני הצדדים בוחרים לשתף.</span></p></li>
+<li><p><span dir="rtl"><strong>הודעות בצ׳אט:</strong> רק שני הצדדים. הצוות שלנו קורא הודעות רק כשיש דיווח, חשד להונאה או חובה לפי חוק.</span></p></li>
+</ul>
+<h2 id="נתוני-עסקאות-ומדד-מחירים"><span dir="rtl">6. נתוני עסקאות ומדד מחירים</span></h2>
+<p><span dir="rtl">כשעסקה מסומנת "נמכר", נשמרים פרטי הפריט והמחיר הסופי. מהם אנחנו מחשבים מחירי שוק, ובעתיד אולי נפרסם מדד מחירים. כל פרסום יהיה בנתונים מצטברים בלבד, בלי שם, טלפון או פרט אחר שמזהה מישהו.</span></p>
+<h2 id="למי-מועבר-המידע"><span dir="rtl">7. למי מועבר המידע</span></h2>
+<ul>
+<li><p><span dir="rtl"><strong>ספקים שעובדים בשבילנו:</strong> שרת ואחסון — Supabase (שרתים בגרמניה, באיחוד האירופי); הודעות SMS — 019 (ישראל); התראות — Expo ו־Apple; תשלומים — Apple; אימות זהות — ספק אימות חיצוני, שנפרסם את שמו כאן לפני שהאימות יופעל. כל ספק מקבל רק את מה שהוא צריך, ומחויב בחוזה לשמור עליו.</span></p></li>
+<li><p><span dir="rtl"><strong>משתמשים אחרים</strong> — לפי סעיף 5.</span></p></li>
+<li><p><span dir="rtl"><strong>משטרה ורשויות</strong> — לפי סעיף 8.</span></p></li>
+<li><p><span dir="rtl"><strong>אם גולדיגר תימכר או תתמזג</strong> — המידע יעבור לבעלים החדשים, באותם תנאים.</span></p></li>
+</ul>
+<h2 id="הונאה-והעברה-למשטרה"><span dir="rtl">8. הונאה והעברה למשטרה</span></h2>
+<p><span dir="rtl">ניסיון הונאה או חשד לעבירה נגד משתמש מתועדים. במקרה כזה אנחנו רשאים להעביר את המידע הרלוונטי — פרטי החשבון, הודעות בצ׳אט, פריטים ועסקאות — למשטרת ישראל, ולמשתמש שנפגע כדי שיוכל להגיש תלונה. בכל מקרה אחר, מידע מועבר לרשויות רק לפי צו או חובה בחוק.</span></p>
+<h2 id="העברה-לחול"><span dir="rtl">9. העברה לחו״ל</span></h2>
+<p><span dir="rtl">חלק מהספקים נמצאים מחוץ לישראל (סעיף 7). אנחנו מעבירים אליהם מידע רק לפי תקנות הגנת הפרטיות (העברת מידע אל מאגרי מידע שמחוץ לגבולות המדינה): למדינות האיחוד האירופי, ולספקים בארצות הברית רק אחרי שהתחייבו בחוזה עיבוד מידע לשמור עליו בתנאים כמו בישראל.</span></p>
+<h2 id="כמה-זמן-המידע-נשמר"><span dir="rtl">10. כמה זמן המידע נשמר</span></h2>
+<ul>
+<li><p><span dir="rtl">כל עוד החשבון פעיל.</span></p></li>
+<li><p><span dir="rtl">במחיקת חשבון: הפרופיל, הפריטים, התמונות וההודעות שלך נמחקים תוך 30 יום, ומהגיבויים תוך 30 יום נוספים. בשיחות של אחרים יופיע "משתמש שנמחק".</span></p></li>
+<li><p><span dir="rtl">חריגים: נתוני עסקאות בלי פרטים מזהים (סעיף 6); תיעוד של הונאה ודיווחים — כל עוד הוא נדרש להליך משפטי; רישומים חשבונאיים — 7 שנים, כנדרש בדיני המס.</span></p></li>
+</ul>
+<h2 id="הזכויות-שלך"><span dir="rtl">11. הזכויות שלך</span></h2>
+<ul>
+<li><p><span dir="rtl">לעיין במידע עליך ולקבל העתק (סעיף 13 לחוק הגנת הפרטיות).</span></p></li>
+<li><p><span dir="rtl">לבקש לתקן מידע שגוי, או למחוק מידע (סעיף 14).</span></p></li>
+<li><p><span dir="rtl">למחוק את החשבון בעצמך, מתוך האפליקציה: פרופיל ← מחיקת חשבון.</span></p></li>
+<li><p><span dir="rtl">להפסיק לקבל הודעות שיווקיות בכל רגע.</span></p></li>
+<li><p><span dir="rtl">לפנות אלינו בכל בקשה: <a href="mailto:didishalman@gmail.com">didishalman@gmail.com</a>. נענה תוך 30 יום.</span></p></li>
+<li><p><span dir="rtl">להגיש תלונה לרשות להגנת הפרטיות.</span></p></li>
+</ul>
+<h2 id="אבטחת-מידע"><span dir="rtl">12. אבטחת מידע</span></h2>
+<p><span dir="rtl">המידע מוצפן בדרך ובאחסון. כל משתמש יכול לגשת רק למידע שלו, והכללים לכך יושבים בשרת עצמו. יש הגבלת קצב נגד משיכה המונית של מידע, גיבוי יומי, ונוהל כתוב לאירוע אבטחה. אין מערכת מוגנת לגמרי; אם יקרה אירוע חמור, נודיע לרשות ולמשתמשים כנדרש בחוק.</span></p>
+<h2 id="גיל"><span dir="rtl">13. גיל</span></h2>
+<p><span dir="rtl">האפליקציה מיועדת לבני 18 ומעלה בלבד. אם נגלה שנאסף מידע על מי שמתחת לגיל 18, נמחק אותו.</span></p>
+<h2 id="שינויים-במדיניות"><span dir="rtl">14. שינויים במדיניות</span></h2>
+<p><span dir="rtl">על שינוי מהותי נודיע באפליקציה לפחות 14 יום לפני שייכנס לתוקף.</span></p>
+</main>
+<footer class="foot"><nav aria-label="מידע"><a href="../privacy/">מדיניות פרטיות</a><a href="../terms/">תנאי שימוש</a><a href="../accessibility/">הצהרת נגישות</a><a href="mailto:didishalman@gmail.com">צור קשר</a></nav><p>© 2026 גולדיגר. כל הזכויות שמורות.</p></footer>
+</body>
+</html>
