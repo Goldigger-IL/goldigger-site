@@ -1,0 +1,36 @@
+.shuki .s-bg { fill: var(--sbg, #BFE6CB); transition: fill 400ms ease; }
+.shuki[data-level="great"] { --sbg: #BFE6CB; } .shuki[data-level="fair"] { --sbg: #FFF3CF; } .shuki[data-level="high1"] { --sbg: #F8DDB0; } .shuki[data-level="high2"] { --sbg: #F6C39A; } .shuki[data-level="high3"] { --sbg: #F2A99B; }
+.shuki .f, .shuki .m, .shuki .drop { opacity: 0; transition: opacity 140ms ease; }
+.shuki[data-level="great"] :is(.f-great, .m-great),
+.shuki[data-level="fair"] :is(.f-shades, .m-fair),
+.shuki[data-level="high1"] :is(.f-shades, .m-high1),
+.shuki[data-level="high2"] :is(.f-brow, .m-high2),
+.shuki[data-level="high3"] :is(.f-wide, .m-high3, .drop) { opacity: 1; }
+.shuki .s-hand, .shuki .s-head, .shuki .s-pump, .shuki .drop, .shuki .s-pendant { transform-box: view-box; }
+.shuki .s-hand { transform-origin: 0 0; transition: transform 620ms var(--spring); }
+.shuki .s-hand--r { transform: translate(103px, 86px) rotate(0deg); }
+.shuki .s-hand--l { transform: translate(17px, 140px) rotate(0deg); }
+.shuki[data-level="great"] .s-hand--l { transform: translate(17px, 86px) rotate(0deg); }
+.shuki[data-level="high1"] .s-hand--r { transform: translate(102px, 90px) rotate(-90deg); }
+.shuki:is([data-level="high2"], [data-level="high3"]) .s-hand--r { transform: translate(103px, 80px) rotate(-180deg); }
+.shuki[data-level="high3"] .s-hand--l { transform: translate(17px, 80px) rotate(180deg); }
+.shuki .s-head { transform-origin: 60px 72px; }
+.shuki .s-pump { transform-origin: 0 0; }
+.shuki .s-pendant { transform-origin: 60px 84px; }
+.shuki.react[data-level="great"] .s-pump { animation: pump 700ms var(--ease) 2; }
+.shuki.react[data-level="great"] .s-head { animation: bob 700ms var(--ease) 2; }
+.shuki.react[data-level="great"] .s-pendant { animation: swing 1400ms var(--ease); }
+.shuki.react[data-level="fair"] .s-head { animation: nod 900ms var(--ease); }
+.shuki.react[data-level="fair"] .s-hand--r .s-pump { animation: wiggle 900ms var(--ease); }
+.shuki.react[data-level="high1"] .s-hand--r .s-pump { animation: wiggle 900ms var(--ease); }
+.shuki.react:is([data-level="high2"], [data-level="high3"]) .s-head { animation: shake 620ms var(--ease); }
+.shuki.react:is([data-level="high2"], [data-level="high3"]) .s-pump { animation: drop 700ms var(--ease) 2; }
+.shuki.react[data-level="high3"] .drop { animation: sweat 1200ms var(--ease); }
+@keyframes pump { 0%, 100% { transform: translateY(0) rotate(0); } 35% { transform: translateY(-7px) rotate(-8deg); } 65% { transform: translateY(1px) rotate(3deg); } }
+@keyframes bob { 0%, 100% { transform: none; } 40% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes swing { 0%, 100% { transform: none; } 25% { transform: rotate(9deg); } 55% { transform: rotate(-6deg); } 80% { transform: rotate(3deg); } }
+@keyframes nod { 0%, 100% { transform: none; } 30% { transform: rotate(-5deg); } 60% { transform: rotate(4deg); } }
+@keyframes wiggle { 0%, 100% { transform: none; } 25% { transform: rotate(14deg); } 50% { transform: rotate(-12deg); } 75% { transform: rotate(6deg); } }
+@keyframes shake { 0%, 100% { transform: none; } 20% { transform: translateX(-4px) rotate(-3deg); } 40% { transform: translateX(4px) rotate(3deg); } 60% { transform: translateX(-3px) rotate(-2deg); } 80% { transform: translateX(2px); } }
+@keyframes drop { 0%, 100% { transform: none; } 40% { transform: translateY(5px); } }
+@keyframes sweat { 0% { transform: translateY(-6px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(4px); } }

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="{{THEME}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>גולדיגר · דמו עיצוב</title>
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preload" href="fonts/rubik-he-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/rubik-he-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: Rubik; font-weight: 400; font-display: swap; src: url(fonts/rubik-he-400.woff2) format("woff2"); unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: Rubik; font-weight: 500; font-display: swap; src: url(fonts/rubik-he-500.woff2) format("woff2"); unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: Rubik; font-weight: 700; font-display: swap; src: url(fonts/rubik-he-700.woff2) format("woff2"); unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: Rubik; font-weight: 800; font-display: swap; src: url(fonts/rubik-he-800.woff2) format("woff2"); unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: Rubik; font-weight: 400; font-display: swap; src: url(fonts/rubik-la-400.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Rubik; font-weight: 500; font-display: swap; src: url(fonts/rubik-la-500.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Rubik; font-weight: 700; font-display: swap; src: url(fonts/rubik-la-700.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Rubik; font-weight: 800; font-display: swap; src: url(fonts/rubik-la-800.woff2) format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+{{CSS}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">דלגו לתוכן</a>
+<div class="app" id="app">
+  <aside class="side" id="side">
+    <a class="logo" href="#buyer/feed" aria-label="גולדיגר, לדף הראשי"><i aria-hidden="true">G</i><span>גולדיגר</span></a>
+    <div class="mode mode--side" role="group" aria-label="מצב שימוש" data-mode-switch></div>
+    <nav class="nav" id="nav" aria-label="ניווט ראשי"></nav>
+    <div class="user" id="user"></div>
+  </aside>
+
+  <div class="mainwrap">
+    <header class="top" id="top">
+      <h1 class="top__title" id="title">פיד</h1>
+      <div class="mode mode--top" role="group" aria-label="מצב שימוש" data-mode-switch></div>
+      <label class="search" for="q"><span class="vh">חיפוש</span><span id="searchIcon" aria-hidden="true"></span><input id="q" type="search" placeholder="חיפוש תכשיט, עיר או מוכר" autocomplete="off"></label>
+      <div class="gold" role="group" aria-label="מחיר הזהב היום">
+        <svg class="spark" viewBox="0 0 48 20" aria-hidden="true"><polyline points="1,15 8,13 14,14 20,9 27,11 34,6 41,7 47,3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>זהב 24K</span><i class="dotsep" aria-hidden="true"></i><span><span class="num">399 ₪</span> לגרם</span>
+      </div>
+      <button class="iconbtn" id="themeBtn" type="button" aria-label="החלפת ערכת נושא"></button>
+    </header>
+    <main id="main" class="main" tabindex="-1"></main>
+  </div>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle" inert>
+  <div class="panel__bar">
+    <span class="panel__kicker">פרטי פריט</span>
+    <button class="iconbtn" id="pClose" type="button" aria-label="סגירה"></button>
+  </div>
+  <div class="panel__scroll">
+    <div class="visual visual--big" id="pVisual" role="img"></div>
+    <div class="panel__pad">
+      <h2 id="pTitle" class="p-title"></h2>
+      <div class="p-priceRow"><span class="price price--xl" id="pPrice"></span><span class="pergram" id="pPer"></span></div>
+      <dl class="specs" id="pSpecs"></dl>
+      <section class="shukiBox" id="pVerdict" aria-live="polite">
+        {{SHUKI}}
+        <div class="shukiBox__txt">
+          <span class="shukiBox__label">שוקי אומר</span>
+          <strong id="pVTitle"></strong>
+          <span id="pVDetail"></span>
+          <small>בהשוואה לתכשיטים דומים השבוע</small>
+        </div>
+      </section>
+      <section class="goldval">
+        <div><span class="goldval__label">שווי הזהב בתכשיט היום</span><small id="pGoldNote"></small></div>
+        <span class="price price--lg" id="pGold"></span>
+      </section>
+      <section class="seller" id="pSeller"></section>
+    </div>
+  </div>
+  <div class="panel__foot">
+    <button class="btn btn--gold" id="pWant" type="button">רוצה</button>
+    <button class="btn btn--ghost" id="pSkip" type="button">מוותר</button>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+{{JS}}
+</script>
+</body>
+</html>
