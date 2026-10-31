@@ -33,11 +33,14 @@
   <div class="mainwrap">
     <header class="top" id="top">
       <h1 class="top__title" id="title">פיד</h1>
-      <div class="mode mode--top" role="group" aria-label="מצב שימוש" data-mode-switch></div>
       <label class="search" for="q"><span class="vh">חיפוש</span><span id="searchIcon" aria-hidden="true"></span><input id="q" type="search" placeholder="חיפוש תכשיט, עיר או מוכר" autocomplete="off"></label>
       <div class="gold" role="group" aria-label="מחיר הזהב היום">
         <svg class="spark" viewBox="0 0 48 20" aria-hidden="true"><polyline points="1,15 8,13 14,14 20,9 27,11 34,6 41,7 47,3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>זהב 24K</span><i class="dotsep" aria-hidden="true"></i><span><span class="num">399 ₪</span> לגרם</span>
+      </div>
+      <div class="profwrap">
+        <button class="iconbtn profbtn" id="profBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="profMenu" aria-label="הפרופיל שלי"></button>
+        <div class="profmenu" id="profMenu" hidden></div>
       </div>
       <button class="iconbtn" id="themeBtn" type="button" aria-label="החלפת ערכת נושא"></button>
     </header>
@@ -56,19 +59,17 @@
     <div class="panel__pad">
       <h2 id="pTitle" class="p-title"></h2>
       <div class="p-priceRow"><span class="price price--xl" id="pPrice"></span><span class="pergram" id="pPer"></span></div>
-      <dl class="specs" id="pSpecs"></dl>
-      <section class="shukiBox" id="pVerdict" aria-live="polite">
-        {{SHUKI}}
-        <div class="shukiBox__txt">
-          <span class="shukiBox__label">שוקי אומר</span>
-          <strong id="pVTitle"></strong>
-          <span id="pVDetail"></span>
-          <small>בהשוואה לתכשיטים דומים השבוע</small>
-        </div>
+      <section class="vrow" id="pVerdict" aria-live="polite">
+        <img id="pVImg" src="img/fair.png" alt="" width="48" height="48">
+        <div class="vrow__txt"><span class="vrow__label">שוקי אומר</span><strong id="pVTitle"></strong><span id="pVDetail"></span></div>
       </section>
-      <section class="goldval">
-        <div><span class="goldval__label">שווי הזהב בתכשיט היום</span><small id="pGoldNote"></small></div>
-        <span class="price price--lg" id="pGold"></span>
+      <dl class="specs" id="pSpecs"></dl>
+      <section class="goldwrap">
+        <div class="goldval">
+          <div><span class="goldval__label">שווי הזהב בתכשיט היום</span><small id="pGoldNote"></small></div>
+          <span class="price price--lg" id="pGold"></span>
+        </div>
+        <p class="goldwhy" id="pGoldWhy"></p>
       </section>
       <section class="seller" id="pSeller"></section>
     </div>
@@ -76,6 +77,16 @@
   <div class="panel__foot">
     <button class="btn btn--gold" id="pWant" type="button">רוצה</button>
     <button class="btn btn--ghost" id="pSkip" type="button">מוותר</button>
+  </div>
+  <div class="sheet__scrim" id="wantScrim"></div>
+  <div class="sheet" id="wantSheet" role="group" aria-labelledby="wTitle" inert>
+    <span class="sheet__demo">דמו</span>
+    <h3 id="wTitle" class="sheet__title" tabindex="-1"></h3>
+    <p class="sheet__txt">כשהמוכר מאשר, נפתח צ׳אט ותקבלו התראה. מספר הטלפון שלכם מוסתר עד שתבחרו לשתף.</p>
+    <div class="sheet__acts">
+      <button class="btn btn--gold" id="wChat" type="button">לשיחה</button>
+      <button class="btn btn--ghost" id="wMore" type="button">להמשיך לחפש</button>
+    </div>
   </div>
 </aside>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -136,7 +136,7 @@ var NAV = {
   seller: [['overview', 'סקירה', 'chart'], ['items', 'הפריטים שלי', 'list'], ['chats', 'צ׳אטים', 'chat'], ['wanted', 'מחפשים', 'search'], ['shop', 'החנות שלי', 'shop']]
 };
 var TITLES = { feed: 'פיד', chats: 'צ׳אטים', shops: 'חנויות', alerts: 'התראות', gold: 'מחיר הזהב', overview: 'סקירה', items: 'הפריטים שלי', wanted: 'מחפשים', shop: 'החנות שלי' };
-var st = { mode: 'buyer', view: 'feed', cat: 'all', good: false, sort: 'def', q: '', hearts: {}, hidden: {}, wanted: {}, chat: { buyer: 'b1', seller: 's1' }, chatList: false, tipOff: false, sortCol: null, sortDir: 1, sel: {}, first: { chart: true, kpi: true }, lastKey: '' };
+var st = { mode: 'buyer', view: 'feed', cat: 'all', good: false, sort: 'def', q: '', hearts: {}, hidden: {}, wanted: {}, chat: { buyer: 'b1', seller: 's1' }, chatList: false, tipOff: false, introOff: false, sortCol: null, sortDir: 1, sel: {}, first: { chart: true, kpi: true }, lastKey: '' };
 var main = $('#main');
 
 function parseHash() {
@@ -158,6 +158,10 @@ function renderChrome() {
   $('#user').innerHTML = st.mode === 'buyer'
     ? '<span class="avatar" aria-hidden="true">ד</span><div><b>דנה כהן</b><span>קונה · תל אביב</span></div>'
     : '<span class="avatar" aria-hidden="true">י</span><div><b>תכשיטי יעקב</b><span>חנות · רמת גן</span></div>';
+  var isB = st.mode === 'buyer';
+  $('#profBtn').textContent = isB ? 'ד' : 'י';
+  $('#profMenu').innerHTML = '<span class="profmenu__who"><b>' + (isB ? 'דנה כהן' : 'תכשיטי יעקב') + '</b>' + (isB ? 'קונה · תל אביב' : 'חנות · רמת גן') + '</span><button type="button" data-m="' + (isB ? 'seller' : 'buyer') + '">' + (isB ? 'מעבר למצב סוחר' : 'מעבר למצב קונה') + '</button>';
+  closeProf();
   $('#title').textContent = TITLES[st.view];
   $('#searchIcon').innerHTML = ic('search');
   $('#q').placeholder = st.mode === 'buyer' ? 'חיפוש תכשיט, עיר או מוכר' : 'חיפוש בפריטים שלי';
@@ -170,7 +174,14 @@ function themeBtn() {
   b.innerHTML = ic(dark ? 'sun' : 'moon');
   b.setAttribute('aria-label', dark ? 'מעבר לערכת נושא בהירה' : 'מעבר לערכת נושא כהה');
 }
+function closeProf() { var m = $('#profMenu'); if (!m) return; m.hidden = true; m.classList.remove('is-on'); $('#profBtn').setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', function (e) {
+  if (e.target.closest('#profBtn')) {
+    var m = $('#profMenu'), open = m.hidden;
+    if (open) { m.hidden = false; m.classList.add('is-on'); $('#profBtn').setAttribute('aria-expanded', 'true'); var f = $('button', m); if (f) f.focus(); } else closeProf();
+    return;
+  }
+  if (!e.target.closest('#profMenu')) closeProf();
   var mb = e.target.closest('[data-m]');
   if (mb) { location.hash = '#' + mb.dataset.m + '/' + NAV[mb.dataset.m][0][0]; return; }
   if (e.target.closest('#themeBtn')) { document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; themeBtn(); }
@@ -201,11 +212,15 @@ function viewPlaceholder() {
 /* feed */
 var CATS = [['all', 'הכל'], ['chain', 'שרשראות'], ['ring', 'טבעות'], ['bracelet', 'צמידים'], ['earrings', 'עגילים'], ['pendant', 'תליונים']];
 function viewFeed() {
-  return '<div class="filters"><div class="chips" role="group" aria-label="סינון לפי סוג">' + CATS.map(function (c) {
-    return '<button type="button" class="chip" data-cat="' + c[0] + '" aria-pressed="' + (st.cat === c[0]) + '">' + c[1] + '</button>';
-  }).join('') + '</div><div class="filters__end"><button type="button" class="switch" id="goodBtn" aria-pressed="' + st.good + '"><i aria-hidden="true"></i>רק מחיר טוב</button>' +
-    '<label class="vh" for="sortSel">מיון</label><select class="select" id="sortSel"><option value="def">מיון: החדשים</option><option value="best">הכי משתלם</option><option value="pa">מחיר: מהנמוך לגבוה</option><option value="pd">מחיר: מהגבוה לנמוך</option></select></div></div>' +
-    '<p class="count" id="count" aria-live="polite"></p><div class="grid" id="grid"></div><p class="demo-note">נתוני דוגמה</p>';
+  return '<div class="filters"><div class="chips" role="group" aria-label="סינון">' +
+    '<button type="button" class="chip chip--good" id="goodBtn" aria-pressed="' + st.good + '"><img src="img/great.png" alt="" width="22" height="22">רק מחיר טוב</button>' +
+    CATS.map(function (c) {
+      return '<button type="button" class="chip" data-cat="' + c[0] + '" aria-pressed="' + (st.cat === c[0]) + '">' + c[1] + '</button>';
+    }).join('') + '</div></div>' +
+    (st.introOff ? '' : '<div class="intro" id="intro"><img src="img/great.png" alt="" width="32" height="32"><p>שוקי בודק כל מחיר מול תכשיטים דומים, ואומר אם הוא טוב, הוגן או יקר.</p><button type="button" id="introX" aria-label="סגירת ההסבר">' + ic('close') + '</button></div>') +
+    '<div class="countrow"><p class="count" id="count" aria-live="polite"></p><label class="sortbox" for="sortSel">' + ic('sort') + '<span>מיון:</span><b id="sortLbl"></b>' +
+    '<select class="select" id="sortSel"><option value="def">החדשים</option><option value="best">הכי משתלם</option><option value="pa">מחיר: מהנמוך לגבוה</option><option value="pd">מחיר: מהגבוה לנמוך</option></select></label></div>' +
+    '<div class="grid" id="grid"></div><p class="demo-note">נתוני דוגמה</p>';
 }
 function cardHtml(it) {
   var s = S[it.s];
@@ -217,6 +232,7 @@ function cardHtml(it) {
     '<span class="row2"><span class="kind kind--' + s.kind + '">' + (s.kind === 'shop' ? 'חנות' : 'פרטי') + '</span><span class="city">' + it.city + '</span></span></span></button>' +
     '<button type="button" class="heart" data-heart="' + it.id + '" aria-pressed="' + !!st.hearts[it.id] + '" aria-label="שמירה למועדפים: ' + esc(it.title) + '"><span>' + ic('heart') + '</span></button></article>';
 }
+function sortLbl() { var s = $('#sortSel'); $('#sortLbl').textContent = s.options[s.selectedIndex].text; }
 function updateGrid() {
   var q = st.q.trim();
   var list = ITEMS.filter(function (it) {
@@ -250,7 +266,7 @@ function viewChat() {
     cur.msgs.map(bubble).join('') + '</div>' +
     '<form class="composer" id="composer"><label class="vh" for="msgIn">הודעה</label><input id="msgIn" type="text" placeholder="כתבו הודעה" autocomplete="off"><button class="send" type="submit" aria-label="שליחה">' + ic('send') + '</button></form></section></div><p class="demo-note">נתוני דוגמה</p>';
 }
-function bubble(m, i, arr, isNew) { return '<div class="bub bub--' + m.f + (isNew ? ' new' : '') + '">' + esc(m.t) + '<small class="num">' + m.h + '</small></div>'; }
+function bubble(m, i, arr, isNew) { if (m.f === 'sys') return '<div class="sys">' + esc(m.t) + '</div>'; return '<div class="bub bub--' + m.f + (isNew ? ' new' : '') + '">' + esc(m.t) + '<small class="num">' + m.h + '</small></div>'; }
 
 /* seller overview */
 function viewOverview() {
@@ -334,7 +350,7 @@ function updateTable() {
 function bind() {
   if (st.mode === 'buyer' && st.view === 'feed') {
     updateGrid();
-    $('#sortSel').value = st.sort;
+    $('#sortSel').value = st.sort; sortLbl();
   }
   if (st.mode === 'seller' && st.view === 'items') updateTable();
   if (st.view === 'chats') { var m = $('#msgs'); if (m) m.scrollTop = m.scrollHeight; }
@@ -352,6 +368,7 @@ main.addEventListener('click', function (e) {
   var o = t.closest('[data-open]'); if (o) { openPanel(ITEMS.filter(function (x) { return x.id === +o.dataset.open; })[0], o); return; }
   var h = t.closest('[data-heart]'); if (h) { var id = h.dataset.heart; st.hearts[id] = !st.hearts[id]; h.setAttribute('aria-pressed', String(!!st.hearts[id])); return; }
   var c = t.closest('[data-cat]'); if (c) { st.cat = c.dataset.cat; updateGrid(); return; }
+  if (t.closest('#introX')) { st.introOff = true; $('#intro').remove(); return; }
   if (t.closest('#goodBtn')) { st.good = !st.good; updateGrid(); return; }
   var cv = t.closest('[data-conv]'); if (cv) { st.chat[st.mode] = cv.dataset.conv; st.chatList = false; st.lastKey = ''; render(); return; }
   if (t.closest('#chatBack')) { st.chatList = true; render(); return; }
@@ -368,7 +385,7 @@ main.addEventListener('click', function (e) {
 });
 main.addEventListener('change', function (e) {
   var t = e.target;
-  if (t.id === 'sortSel') { st.sort = t.value; updateGrid(); }
+  if (t.id === 'sortSel') { st.sort = t.value; sortLbl(); updateGrid(); }
   if (t.id === 'selAll') { st.sel = {}; if (t.checked) MINE.forEach(function (m) { st.sel[m.id] = true; }); updateTable(); }
   if (t.dataset && t.dataset.sel) { if (t.checked) st.sel[t.dataset.sel] = true; else delete st.sel[t.dataset.sel]; updateTable(); var again = $('[data-sel="' + t.dataset.sel + '"]'); if (again) again.focus(); }
 });
@@ -390,7 +407,7 @@ $('#q').addEventListener('input', function (e) {
 });
 
 /* ---------- detail panel ---------- */
-var panel = $('#panel'), backdrop = $('#backdrop'), curItem = null, opener = null, reactT;
+var panel = $('#panel'), backdrop = $('#backdrop'), curItem = null, opener = null;
 $('#pClose').innerHTML = ic('close');
 function openPanel(it, from) {
   curItem = it; opener = from; var s = S[it.s], v = it.v;
@@ -399,25 +416,25 @@ function openPanel(it, from) {
   $('#pPrice').textContent = fmt(it.price) + ' ₪';
   $('#pPer').innerHTML = money(it.pg) + ' לגרם';
   $('#pSpecs').innerHTML = [['קראט', '<span class="num">' + it.k + 'K</span>'], ['משקל', it.g + ' גרם'], [it.kind === 'ring' ? 'מידה' : 'אורך', it.len.replace('מידה ', '')], ['מצב', it.cond]].map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('');
-  var sk = $('#pVerdict .shuki'); sk.classList.remove('react');
   $('#pVerdict').dataset.tone = v.tone; $('#pVTitle').textContent = v.title; $('#pVDetail').innerHTML = v.html;
-  sk.setAttribute('aria-label', 'שוקי: ' + v.title);
+  $('#pVImg').src = 'img/' + v.level + '.png';
   $('#pGold').textContent = fmt(it.gold) + ' ₪';
+  $('#pGoldWhy').innerHTML = it.price > it.gold
+    ? 'ההפרש, <span class="num">' + fmt(it.price - it.gold) + ' ₪</span>, הוא עבודה, עיצוב ורווח המוכר. שוקי בודק שהוא סביר לעומת תכשיטים דומים.'
+    : 'המחיר נמוך משווי הזהב בתכשיט. כדאי לבדוק חותמת ומשקל לפני שקונים.';
   $('#pGoldNote').innerHTML = 'לפי <span class="num">' + GOLD + ' ₪</span> לגרם זהב 24K';
   $('#pSeller').innerHTML = '<span class="avatar" aria-hidden="true">' + s.name.charAt(0) + '</span><div><b>' + s.name + '</b><span class="sub">' + s.city + ' · ' + s.rating + ' ★ · ' + s.deals + ' עסקאות</span></div><span class="kind kind--' + s.kind + '">' + (s.kind === 'shop' ? 'חנות' : 'פרטי') + '</span>';
-  var wb = $('#pWant'); wb.textContent = st.wanted[it.id] ? 'הבקשה נשלחה (דמו)' : 'רוצה';
+  var wb = $('#pWant'); wb.textContent = st.wanted[it.id] ? 'הבקשה נשלחה' : 'רוצה';
+  hideSheet(true);
   $('.panel__scroll').scrollTop = 0;
   backdrop.hidden = false; panel.removeAttribute('inert');
   void backdrop.offsetWidth;
   backdrop.classList.add('is-open'); panel.classList.add('is-open');
   setTimeout(function () { $('#pClose').focus(); }, 30);
-  // verdict level set after a beat so the pose change and reaction are visible
-  sk.dataset.level = 'fair';
-  clearTimeout(reactT);
-  reactT = setTimeout(function () { sk.dataset.level = v.level; void sk.getBBox(); sk.classList.add('react'); }, REDUCED ? 0 : 320);
 }
 function closePanel() {
   if (!panel.classList.contains('is-open')) return;
+  hideSheet(true);
   panel.classList.remove('is-open'); backdrop.classList.remove('is-open'); panel.setAttribute('inert', '');
   setTimeout(function () { if (!backdrop.classList.contains('is-open')) backdrop.hidden = true; }, 400);
   if (opener && document.contains(opener)) opener.focus();
@@ -425,12 +442,39 @@ function closePanel() {
 backdrop.addEventListener('click', closePanel);
 $('#pClose').addEventListener('click', closePanel);
 $('#pSkip').addEventListener('click', function () { st.hidden[curItem.id] = true; closePanel(); toast('דמו: הפריט הוסתר מהפיד'); opener = null; if ($('#grid')) updateGrid(); });
-$('#pWant').addEventListener('click', function () { st.wanted[curItem.id] = true; this.textContent = 'הבקשה נשלחה (דמו)'; toast('דמו: הבקשה תישלח למוכר'); });
+var sheet = $('#wantSheet'), scrim = $('#wantScrim');
+function showSheet() {
+  var s = S[curItem.s];
+  $('#wTitle').textContent = 'הבקשה נשלחה ל' + s.name;
+  sheet.removeAttribute('inert'); sheet.classList.add('is-on'); scrim.classList.add('is-on');
+  ['.panel__scroll', '.panel__foot', '.panel__bar'].forEach(function (q) { $(q, panel).setAttribute('inert', ''); });
+  setTimeout(function () { $('#wTitle').focus(); }, 30);
+}
+function hideSheet(quiet) {
+  if (!sheet.classList.contains('is-on')) return;
+  sheet.classList.remove('is-on'); scrim.classList.remove('is-on'); sheet.setAttribute('inert', '');
+  ['.panel__scroll', '.panel__foot', '.panel__bar'].forEach(function (q) { $(q, panel).removeAttribute('inert'); });
+  if (!quiet) $('#pWant').focus();
+}
+$('#pWant').addEventListener('click', function () { st.wanted[curItem.id] = true; this.textContent = 'הבקשה נשלחה'; showSheet(); });
+scrim.addEventListener('click', function () { hideSheet(); });
+$('#wMore').addEventListener('click', function () { closePanel(); });
+$('#wChat').addEventListener('click', function () {
+  var it = curItem, s = S[it.s], id = 'w' + it.id;
+  var c = CHATS.buyer.filter(function (x) { return x.id === id; })[0];
+  if (!c) {
+    c = { id: id, name: s.name, role: (s.kind === 'shop' ? 'חנות' : 'מוכר פרטי') + ' · ' + s.rating + ' · ' + s.deals + ' עסקאות', item: it.id, time: 'עכשיו', unread: 0, msgs: [{ f: 'sys', t: 'ביקשת לקנות. מחכים לאישור המוכר.', h: '' }] };
+    CHATS.buyer.unshift(c);
+  }
+  st.chat.buyer = id; st.chatList = false; st.lastKey = '';
+  opener = null; closePanel();
+  if (location.hash === '#buyer/chats') render(); else location.hash = '#buyer/chats';
+});
 document.addEventListener('keydown', function (e) {
   if (!panel.classList.contains('is-open')) return;
-  if (e.key === 'Escape') { closePanel(); return; }
+  if (e.key === 'Escape') { if (sheet.classList.contains('is-on')) hideSheet(); else closePanel(); return; }
   if (e.key === 'Tab') {
-    var f = $$('button, [href], input, select', panel).filter(function (x) { return !x.disabled && x.offsetParent !== null; });
+    var f = $$('button, [href], input, select', sheet.classList.contains('is-on') ? sheet : panel).filter(function (x) { return !x.disabled && x.offsetParent !== null; });
     var first = f[0], last = f[f.length - 1];
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
