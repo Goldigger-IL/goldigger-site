@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFDF8">
+<title>גולדיגר: זהב במחיר הוגן</title>
+<meta name="description" content="גולדיגר: קונים ומוכרים תכשיטי זהב בישראל. שוקי בודק כל תכשיט לפי המחיר לגרם. נכנסים בחינם לשנה עד סוף חנוכה.">
+<link rel="icon" href="favicon.png">
+<link rel="preload" href="fonts/rubik-he-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">דילוג לתוכן</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav__bar">
+      <a class="logo" href="#top" aria-label="גולדיגר, לראש הדף"><i aria-hidden="true">G</i>גולדיגר</a>
+      <div class="nav__end">
+        <a class="btn btn--gold" href="#offer">שנה חינם</a>
+        <div class="bloom" data-bloom>
+          <button class="bloom__trigger" type="button" aria-expanded="false" aria-controls="bloom-panel"><span class="bars" aria-hidden="true"><i></i><i></i></span>תפריט</button>
+          <div class="bloom__panel" id="bloom-panel" role="dialog" aria-label="תפריט" hidden>
+            <div class="bloom__head"><span>גולדיגר</span><button class="bloom__close" type="button" aria-label="סגירת התפריט"><span class="xx" aria-hidden="true"><i></i><i></i></span>סגירה</button></div>
+            <ul class="bloom__grid">
+              <li><a href="#judge"><b>שוקי</b><span>הזיזו מחיר</span></a></li>
+              <li><a href="#story"><b>האפליקציה</b><span>מסך אחר מסך</span></a></li>
+              <li><a href="#vs"><b>ברחוב מול כאן</b><span>ההבדל</span></a></li>
+              <li><a href="#trust"><b>אמינות</b><span>מי כאן</span></a></li>
+              <li><a href="#offer"><b>שנה חינם</b><span>עד 12.12</span></a></li>
+              <li><a href="#shops"><b>לחנויות</b><span>הצטרפות</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="h1">
+  <div class="wrap">
+    <span class="tag rv"><b aria-hidden="true"></b>בקרוב באפ סטור, לאייפון</span>
+    <h1 id="h1" class="rv" style="--d:80ms">זהב במחיר <span>הוגן.</span></h1>
+    <p class="lead rv" style="--d:160ms">שוקי בודק כל תכשיט לפי המחיר לגרם, מול כל הדומים לו. בלי ניחושים, בלי עמלות של חנות.</p>
+    <div class="actions rv" style="--d:240ms">
+      <a class="btn btn--gold" href="#offer">מצטרפים חינם לשנה</a>
+      <a class="btn btn--ghost" href="#judge">איך שוקי עובד</a>
+    </div>
+  </div>
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/01-feed.webp" width="600" height="1301" alt="" fetchpriority="high"></div></div>
+    <div class="chip chip--a"><img src="img/shuki-great.png" width="46" height="46" alt=""><div><b>מחיר טוב</b><small>6% מתחת לממוצע</small></div></div>
+    <div class="chip chip--b"><div><b class="num">387 ₪</b><small>לגרם, שרשרת 14K</small></div></div>
+    <div class="chip chip--c"><img src="img/shuki-fair.png" width="46" height="46" alt=""><div><b>מחיר הוגן</b><small>בממוצע השבוע</small></div></div>
+  </div>
+</section>
+
+<section class="sec judge" id="judge" aria-labelledby="judge-h">
+  <div class="wrap">
+    <div class="meet">
+      <h2 class="meet__h rv" id="judge-h">הכירו את שוקי.</h2>
+      <p class="meet__who rv" style="--d:100ms">שוקי הוא השופט של גולדיגר. על כל תכשיט באפליקציה הוא בודק את המחיר לגרם מול תכשיטים דומים מאותו שבוע, ואומר לכם בפרצוף אחד אם המחיר טוב, הוגן או יקר.</p>
+      <ul class="meet__facts">
+        <li class="rv" style="--d:160ms"><b>חנויות מול חנויות</b><span>ופרטיים מול פרטיים</span></li>
+        <li class="rv" style="--d:220ms"><b>אף מוכר לא מזיז לבד</b><span>את הממוצע של שוקי</span></li>
+        <li class="rv" style="--d:280ms"><b>תכשיט עם אבן?</b><span>שוקי מעריך רק את הזהב</span></li>
+      </ul>
+    </div>
+    <div class="meet__try rv"><h3>הוא מרים אגודל. או שלא.</h3><p>הזיזו את המחיר ותראו מה שוקי חושב.</p></div>
+    <div class="judge__grid">
+      <div class="judge__face rv-scale">
+        <!--SHUKI-->
+        <div class="verdict" id="verdict" data-tone="great" aria-live="polite"><span id="v-title">מחיר טוב</span><small id="v-detail">6% מתחת לממוצע</small></div>
+      </div>
+      <div class="item rv" style="--d:120ms">
+        <div class="item__top">
+          <div class="item__pic" aria-hidden="true"><svg viewBox="0 0 60 40"><path d="M6 6 Q30 46 54 6" fill="none" stroke="#C9952B" stroke-width="5" stroke-linecap="round" stroke-dasharray="5 3"/><circle cx="30" cy="27" r="4" fill="none" stroke="#C9952B" stroke-width="2.5"/></svg></div>
+          <div><h3>שרשרת פיגארו 14K</h3><p class="item__meta">10.2 גרם, 45 ס״מ, חנות ברמת גן</p></div>
+        </div>
+        <div class="item__price"><strong class="num" id="price">3,950 ₪</strong><span><span class="num" id="per">387 ₪</span> לגרם</span></div>
+        <label class="visually-hidden" for="range">מחיר התכשיט</label>
+        <input class="range" id="range" type="range" min="3200" max="5600" step="10" value="3950">
+        <div class="range__ends" aria-hidden="true"><span>זול</span><span>יקר</span></div>
+        <p class="item__note">דוגמה, לפי ממוצע של 410 ₪ לגרם. באפליקציה שוקי משווה לתכשיטים דומים שעולים בה באותו שבוע, חנויות לחנויות ופרטיים לפרטיים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="story" aria-labelledby="story-h">
+  <div class="wrap">
+    <span class="kicker rv">האפליקציה</span>
+    <h2 class="h2 rv" id="story-h" style="--d:80ms">מהפיד ועד הפגישה.</h2>
+    <div class="story__grid">
+      <ol class="steps">
+        <li class="step" data-shot="0"><span class="step__n">1</span><h3>מחליקים על תכשיטים.</h3><p>מחנויות ומאנשים פרטיים באזור שלכם. מה שמוצא חן, ״רוצה״.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/01-feed.webp" width="600" height="1301" alt="מסך הפיד של גולדיגר" loading="lazy"></div></div></div></li>
+        <li class="step" data-shot="1"><span class="step__n">2</span><h3>שוקי שופט.</h3><p>על כל פריט: המחיר לגרם, שווי הזהב בו היום, וציון של טוב, הוגן או יקר.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/02-shuki.webp" width="600" height="1301" alt="דף פריט עם הציון של שוקי" loading="lazy"></div></div></div></li>
+        <li class="step" data-shot="2"><span class="step__n">3</span><h3>מדברים בלי לחשוף טלפון.</h3><p>המוכר מאשר ונפתח צ׳אט. קובעים פגישה, בודקים ביד ומשלמים ישירות למוכר.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/04-chat.webp" width="600" height="1301" alt="צ׳אט בין קונה למוכר" loading="lazy"></div></div></div></li>
+        <li class="step" data-shot="3"><span class="step__n">4</span><h3>שוקי מחפש בשבילכם.</h3><p>בוחרים סוג, קראט, משקל, אורך ותקציב. כשעולה משהו מתאים, מגיעה התראה.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/05-alerts.webp" width="600" height="1301" alt="מסך ההתראות" loading="lazy"></div></div></div></li>
+        <li class="step" data-shot="4"><span class="step__n">5</span><h3>מחיר הזהב, כל יום.</h3><p>מחיר הזהב בעולם לגרם, לפי קראט, מתעדכן פעמיים ביום.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/03-gold.webp" width="600" height="1301" alt="מסך מחיר הזהב" loading="lazy"></div></div></div></li>
+        <li class="step" data-shot="5"><span class="step__n">6</span><h3>חנויות לפי עיר.</h3><p>מוצאים חנות קרובה ורואים את כל מה שיש לה, עם הכתובת.</p><div class="step__shot"><div class="phone"><div class="phone__screen"><span class="phone__notch"></span><img src="img/06-shops.webp" width="600" height="1301" alt="מסך חיפוש חנות" loading="lazy"></div></div></div></li>
+      </ol>
+      <div class="story__pin" aria-hidden="true">
+        <span class="story__glow"></span>
+        <div class="phone"><div class="phone__screen" id="pin-screen"><span class="phone__notch"></span>
+          <img class="on" src="img/01-feed.webp" alt=""><img src="img/02-shuki.webp" alt="" loading="lazy"><img src="img/04-chat.webp" alt="" loading="lazy"><img src="img/05-alerts.webp" alt="" loading="lazy"><img src="img/03-gold.webp" alt="" loading="lazy"><img src="img/06-shops.webp" alt="" loading="lazy">
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="vs" aria-labelledby="vs-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="center"><h2 class="h2 rv" id="vs-h">אותו תכשיט. שני עולמות.</h2></div>
+    <div class="vs">
+      <div class="card card--street rv">
+        <h3>בחנות ברחוב</h3>
+        <ul><li>כמה עולה גרם?<span>צריך לשאול</span></li><li>זה יקר?<span>הולכים לחנות הבאה</span></li><li>ממי קונים?<span>מהחנות שמולכם</span></li><li>מי מחזיק בכסף?<span>החנות</span></li></ul>
+      </div>
+      <div class="card card--app rv" style="--d:120ms">
+        <h3>בגולדיגר</h3>
+        <ul><li>כמה עולה גרם?<b>כתוב ליד כל מחיר</b></li><li>זה יקר?<b>שוקי כבר בדק</b></li><li>ממי קונים?<b>חנויות ופרטיים באזור</b></li><li>מי מחזיק בכסף?<b>אתם</b></li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="trust" aria-labelledby="trust-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="center"><h2 class="h2 rv" id="trust-h">כאן כולם אמיתיים.</h2></div>
+    <div class="trust">
+      <div class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="m9 12 2 2 4-4"/></svg><h3>טלפון מאומת ותמונה אמיתית</h3><p>כל משתמש נכנס עם קוד ב-SMS. מוכר פרטי מופיע עם תמונה שלו.</p></div>
+      <div class="rv" style="--d:80ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 17.6 5"/><path d="M19 9.5c0 1.6-.6 3.3-1.5 4.9"/><path d="m3 3 18 18"/></svg><h3>בלי מיקום בתמונות</h3><p>אנחנו מוחקים את המיקום מכל תמונה לפני שהיא עולה.</p></div>
+      <div class="rv" style="--d:160ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 20 7 9h10l2 11"/><path d="M9 9a3 3 0 0 1 6 0"/></svg><h3>חותמת ומשקל בתמונה</h3><p>מוכרים מצלמים את החותמת ואת התכשיט על המשקל.</p></div>
+      <div class="rv" style="--d:240ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="4" y="11" width="16" height="10" rx="3"/></svg><h3>אנחנו לא נוגעים בכסף</h3><p>נפגשים, בודקים ביד ומשלמים ישירות למוכר.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec offer" id="offer" aria-labelledby="offer-h">
+  <div class="wrap">
+    <h2 class="rv" id="offer-h">שנה שלמה <span>חינם.</span></h2>
+    <p class="rv" style="--d:100ms">מצטרפים עד סוף חנוכה, 12.12, ולא משלמים כלום במשך שנה.</p>
+    <div class="count rv" style="--d:180ms" id="count" aria-label="הזמן שנשאר עד סוף המבצע">
+      <div><b class="num" data-u="s">00</b><small>שניות</small></div>
+      <div><b class="num" data-u="m">00</b><small>דקות</small></div>
+      <div><b class="num" data-u="h">00</b><small>שעות</small></div>
+      <div><b class="num" data-u="d">0</b><small>ימים</small></div>
+    </div>
+    <div><span class="btn btn--gold rv" style="--d:240ms">בקרוב באפ סטור</span></div>
+    <p class="fine rv">אחר כך 4.90 ₪ לשנה, בחידוש אוטומטי. אפשר לבטל בכל עת. <a href="https://goldigger.co.il/terms/">התנאים המלאים</a></p>
+  </div>
+</section>
+
+<section class="sec" id="shops" aria-labelledby="shops-h">
+  <div class="wrap shops">
+    <div>
+      <span class="kicker rv">לחנויות ולסוחרים</span>
+      <h2 class="h2 rv" id="shops-h" style="--d:80ms">הקונים כבר מחפשים.</h2>
+      <p class="sub rv" style="--d:160ms">רשימה של מה שקונים חיפשו ולא מצאו, לפי סוג תכשיט. יש לכם? פונים אליהם בצ׳אט.</p>
+      <a class="btn btn--ink rv" style="--d:220ms" href="mailto:didishalman@gmail.com?subject=%D7%97%D7%A0%D7%95%D7%AA%20%D7%91%D7%92%D7%95%D7%9C%D7%93%D7%99%D7%92%D7%A8">דברו איתנו</a>
+      <p class="mail rv" style="--d:260ms">או במייל: didishalman@gmail.com</p>
+    </div>
+    <div class="price-list rv-scale">
+      <div><p><b>3 החודשים הראשונים</b><span>כל מה שיש ב-Pro</span></p><em class="num big">0 ₪</em></div>
+      <div><p><b>אחר כך, לחודש</b><span>בחידוש אוטומטי</span></p><em class="num">199 ₪</em></div>
+      <div><p><b>לוח ניהול</b><span>פריטים, מכירות וצפיות</span></p><em>כלול</em></div>
+      <div><p><b>תג זהב קבוע</b><span>ל-50 החנויות הראשונות</span></p><em>מתנה</em></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__row">
+      <a class="logo" href="#top"><i aria-hidden="true">G</i>גולדיגר</a>
+      <nav aria-label="מידע"><a href="https://goldigger.co.il/privacy/">מדיניות פרטיות</a><a href="https://goldigger.co.il/terms/">תנאי שימוש</a><a href="https://goldigger.co.il/accessibility/">הצהרת נגישות</a><a href="mailto:didishalman@gmail.com">צור קשר</a></nav>
+      <small>© 2026 גולדיגר. מחירי זהב באפליקציה: MetalCharts.</small>
+    </div>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
