@@ -28,6 +28,8 @@ var IC = {
   moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/>',
   shield: '<path d="M12 3 5 6v5.5c0 4.3 2.9 7.6 7 9.5 4.1-1.9 7-5.2 7-9.5V6z"/><path d="m9 12 2.2 2.2L15 10.5"/>',
   up: '<path d="m6 14 6-6 6 6"/>', down: '<path d="m6 10 6 6 6-6"/>', sort: '<path d="m8 9 4-4 4 4M8 15l4 4 4-4"/>',
+  chevR: '<path d="m9 5.5 6.5 6.5L9 18.5"/>',
+  out: '<path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14M10 8l-4 4 4 4M6 12h10"/>',
   user: '<circle cx="12" cy="8.5" r="3.7"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/>'
 };
 var ic = function (n, cls) { return '<svg class="ic ' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + IC[n] + '</svg>'; };
@@ -132,10 +134,10 @@ var allItem = function (id) { return ITEMS.filter(function (x) { return x.id ===
 
 /* ---------- state ---------- */
 var NAV = {
-  buyer: [['feed', 'פיד', 'feed'], ['chats', 'צ׳אטים', 'chat'], ['shops', 'חנויות', 'shop'], ['alerts', 'התראות', 'bell'], ['gold', 'מחיר הזהב', 'coin']],
+  buyer: [['feed', 'פיד', 'feed'], ['chats', 'צ׳אטים', 'chat'], ['shops', 'חנויות', 'shop'], ['alerts', 'התראות', 'bell'], ['profile', 'פרופיל', 'user'], ['gold', 'מחיר הזהב', 'coin', true], ['liked', 'אהבתי', 'heart', true, 'profile'], ['requests', 'הבקשות שלי', 'list', true, 'profile']],
   seller: [['overview', 'סקירה', 'chart'], ['items', 'הפריטים שלי', 'list'], ['chats', 'צ׳אטים', 'chat'], ['wanted', 'מחפשים', 'search'], ['shop', 'החנות שלי', 'shop']]
 };
-var TITLES = { feed: 'פיד', chats: 'צ׳אטים', shops: 'חנויות', alerts: 'התראות', gold: 'מחיר הזהב', overview: 'סקירה', items: 'הפריטים שלי', wanted: 'מחפשים', shop: 'החנות שלי' };
+var TITLES = { feed: 'פיד', chats: 'צ׳אטים', shops: 'חנויות', alerts: 'התראות', gold: 'מחיר הזהב', overview: 'סקירה', items: 'הפריטים שלי', wanted: 'מחפשים', shop: 'החנות שלי', profile: 'פרופיל', liked: 'אהבתי', requests: 'הבקשות שלי' };
 var st = { mode: 'buyer', view: 'feed', cat: 'all', good: false, sort: 'def', q: '', hearts: {}, hidden: {}, wanted: {}, chat: { buyer: 'b1', seller: 's1' }, chatList: false, tipOff: false, introOff: false, sortCol: null, sortDir: 1, sel: {}, first: { chart: true, kpi: true }, lastKey: '' };
 var main = $('#main');
 
@@ -151,17 +153,22 @@ function renderChrome() {
   $$('[data-mode-switch]').forEach(function (el) {
     el.innerHTML = '<button type="button" data-m="buyer" aria-pressed="' + (st.mode === 'buyer') + '">קונה</button><button type="button" data-m="seller" aria-pressed="' + (st.mode === 'seller') + '">סוחר</button>';
   });
-  $('#nav').innerHTML = NAV[st.mode].map(function (n) {
+  var cur = NAV[st.mode].filter(function (n) { return n[0] === st.view; })[0], act = cur[4] || cur[0];
+  $('#nav').innerHTML = NAV[st.mode].filter(function (n) { return !n[3]; }).map(function (n) {
     var badge = n[0] === 'chats' ? '<span class="badge" aria-label="הודעות שלא נקראו">' + (st.mode === 'buyer' ? 1 : 2) + '</span>' : '';
-    return '<a href="#' + st.mode + '/' + n[0] + '"' + (n[0] === st.view ? ' aria-current="page"' : '') + '>' + ic(n[2]) + '<span class="t">' + n[1] + '</span>' + badge + '</a>';
+    return '<a href="#' + st.mode + '/' + n[0] + '"' + (n[0] === act ? ' aria-current="page"' : '') + '>' + ic(n[2]) + '<span class="t">' + n[1] + '</span>' + badge + '</a>';
   }).join('');
-  $('#user').innerHTML = st.mode === 'buyer'
-    ? '<span class="avatar" aria-hidden="true">ד</span><div><b>דנה כהן</b><span>קונה · תל אביב</span></div>'
-    : '<span class="avatar" aria-hidden="true">י</span><div><b>תכשיטי יעקב</b><span>חנות · רמת גן</span></div>';
-  var isB = st.mode === 'buyer';
-  $('#profBtn').textContent = isB ? 'ד' : 'י';
-  $('#profMenu').innerHTML = '<span class="profmenu__who"><b>' + (isB ? 'דנה כהן' : 'תכשיטי יעקב') + '</b>' + (isB ? 'קונה · תל אביב' : 'חנות · רמת גן') + '</span><button type="button" data-m="' + (isB ? 'seller' : 'buyer') + '">' + (isB ? 'מעבר למצב סוחר' : 'מעבר למצב קונה') + '</button>';
-  closeProf();
+  var isB = st.mode === 'buyer', u = $('#user');
+  u.href = isB ? '#buyer/profile' : '#seller/shop';
+  u.setAttribute('aria-label', isB ? 'הפרופיל שלי, דנה כהן' : 'החנות שלי, תכשיטי יעקב');
+  if (u.getAttribute('aria-current')) u.removeAttribute('aria-current');
+  if ((isB && st.view === 'profile') || (!isB && st.view === 'shop')) u.setAttribute('aria-current', 'page');
+  u.innerHTML = isB
+    ? '<span class="avatar" aria-hidden="true">ד</span><div><b>דנה כהן</b><span>קונה · תל אביב</span></div>' + ic('chev', 'user__chev')
+    : '<span class="avatar" aria-hidden="true">י</span><div><b>תכשיטי יעקב</b><span>חנות · רמת גן</span></div>' + ic('chev', 'user__chev');
+  var g = $('#goldChip');
+  if (isB) g.setAttribute('href', '#buyer/gold'); else { g.removeAttribute('href'); }
+  document.body.dataset.view = st.mode + '-' + st.view;
   $('#title').textContent = TITLES[st.view];
   $('#searchIcon').innerHTML = ic('search');
   $('#q').placeholder = st.mode === 'buyer' ? 'חיפוש תכשיט, עיר או מוכר' : 'חיפוש בפריטים שלי';
@@ -174,14 +181,7 @@ function themeBtn() {
   b.innerHTML = ic(dark ? 'sun' : 'moon');
   b.setAttribute('aria-label', dark ? 'מעבר לערכת נושא בהירה' : 'מעבר לערכת נושא כהה');
 }
-function closeProf() { var m = $('#profMenu'); if (!m) return; m.hidden = true; m.classList.remove('is-on'); $('#profBtn').setAttribute('aria-expanded', 'false'); }
 document.addEventListener('click', function (e) {
-  if (e.target.closest('#profBtn')) {
-    var m = $('#profMenu'), open = m.hidden;
-    if (open) { m.hidden = false; m.classList.add('is-on'); $('#profBtn').setAttribute('aria-expanded', 'true'); var f = $('button', m); if (f) f.focus(); } else closeProf();
-    return;
-  }
-  if (!e.target.closest('#profMenu')) closeProf();
   var mb = e.target.closest('[data-m]');
   if (mb) { location.hash = '#' + mb.dataset.m + '/' + NAV[mb.dataset.m][0][0]; return; }
   if (e.target.closest('#themeBtn')) { document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; themeBtn(); }
@@ -198,15 +198,61 @@ function toast(msg) {
 function render() {
   parseHash(); renderChrome();
   var key = st.mode + '/' + st.view, fresh = key !== st.lastKey; st.lastKey = key;
-  var v = st.mode === 'buyer' ? ({ feed: viewFeed, chats: viewChat }[st.view]) : ({ overview: viewOverview, items: viewItems, chats: viewChat }[st.view]);
+  var v = st.mode === 'buyer' ? ({ feed: viewFeed, chats: viewChat, profile: viewProfile, liked: viewLiked, requests: viewRequests }[st.view]) : ({ overview: viewOverview, items: viewItems, chats: viewChat, shop: viewShop }[st.view]);
   main.innerHTML = '<div class="view">' + (v ? v() : viewPlaceholder()) + '</div>';
   if (!fresh) main.firstChild.style.animation = 'none';
   bind();
 }
 function viewPlaceholder() {
   var n = NAV[st.mode].filter(function (x) { return x[0] === st.view; })[0];
-  var msg = { shops: 'כאן יופיעו חנויות ומוכרים מאומתים לפי עיר.', alerts: 'כאן יופיעו התראות על מחירים ופריטים חדשים שמתאימים לכם.', gold: 'כאן יופיע גרף מחיר הזהב לפי קראט.', wanted: 'כאן יופיעו כל הבקשות של קונים לפי עיר וקראט.', shop: 'כאן יופיעו פרטי החנות, שעות פתיחה והגדרות.' }[st.view];
+  var msg = { shops: 'כאן יופיעו חנויות ומוכרים מאומתים לפי עיר.', alerts: 'כאן יופיעו התראות על מחירים ופריטים חדשים שמתאימים לכם.', gold: 'כאן יופיע גרף מחיר הזהב לפי קראט.', wanted: 'כאן יופיעו כל הבקשות של קונים לפי עיר וקראט.', shop: '' }[st.view];
   return '<div class="ph">' + ic(n[2]) + '<h2>' + n[1] + '</h2><p>' + msg + ' המסך הזה מחוץ לדמו הנוכחי.</p><a class="btn btn--gold" href="#' + st.mode + '/' + NAV[st.mode][0][0] + '">חזרה ל' + NAV[st.mode][0][1] + '</a></div>';
+}
+
+/* profile */
+var hearted = function () { return ITEMS.filter(function (i) { return st.hearts[i.id]; }); };
+var requested = function () { return ITEMS.filter(function (i) { return st.wanted[i.id]; }); };
+function row(o) {
+  var inner = (o.icon ? '<span class="setrow__ic">' + ic(o.icon) + '</span>' : '') + '<span class="setrow__t"><b>' + o.t + '</b>' + (o.sub ? '<small>' + o.sub + '</small>' : '') + '</span>' + (o.val ? '<span class="setrow__v num">' + o.val + '</span>' : '') + (o.ext ? '<span class="vh">נפתח בכרטיסייה חדשה</span>' : '') + (o.nochev ? '' : ic('chev', 'setrow__chev'));
+  if (o.href) return '<a class="setrow' + (o.cls ? ' ' + o.cls : '') + '" href="' + o.href + '"' + (o.ext ? ' target="_blank" rel="noopener"' : '') + '>' + inner + '</a>';
+  return '<button type="button" class="setrow' + (o.cls ? ' ' + o.cls : '') + '"' + (o.attr ? ' ' + o.attr : '') + '>' + inner + '</button>';
+}
+function group(title, rows) { return '<section class="setgroup"' + (title ? ' aria-label="' + title + '"' : '') + (title ? '><h2 class="setgroup__h">' + title + '</h2>' : '>') + '<div class="setlist">' + rows.join('') + '</div></section>'; }
+function backLink(txt) { return '<a class="backlink" href="#buyer/profile">' + ic('chevR') + '<span>' + txt + '</span></a>'; }
+function viewProfile() {
+  return '<div class="prof"><header class="prof__head"><span class="avatar avatar--xl" aria-hidden="true">ד</span><div><h2>דנה כהן</h2><p class="prof__city">תל אביב</p>' +
+    '<p class="prof__ok">' + ic('shield') + '<span>טלפון מאומת</span></p><p class="prof__since">חבר מאז אוקטובר 2026</p></div></header>' +
+    group('הפעילות שלי', [
+      row({ t: 'אהבתי', icon: 'heart', val: hearted().length, href: '#buyer/liked' }),
+      row({ t: 'הבקשות שלי', icon: 'list', val: requested().length, href: '#buyer/requests' }),
+      row({ t: 'ההתראות שלי', icon: 'bell', href: '#buyer/alerts' })]) +
+    '<section class="setgroup" aria-label="המנוי"><h2 class="setgroup__h">המנוי</h2><div class="setlist"><div class="setrow setrow--static"><span class="setrow__ic">' + ic('coin') + '</span><span class="setrow__t"><b>שנה ראשונה חינם, עד <span class="num">12.12.2027</span></b><small>אחר כך <span class="num">4.90 ₪</span> לשנה, אפשר לבטל בכל עת</small></span></div></div></section>' +
+    group('מצב סוחר', [row({ t: 'יש לך חנות? מעבר למצב סוחר', icon: 'shop', attr: 'data-m="seller"' })]) +
+    group('מידע', [
+      row({ t: 'נגישות', href: 'https://goldigger.co.il/accessibility/', ext: true }),
+      row({ t: 'תנאי שימוש', href: 'https://goldigger.co.il/terms/', ext: true }),
+      row({ t: 'מדיניות פרטיות', href: 'https://goldigger.co.il/privacy/', ext: true })]) +
+    group('', [row({ t: 'התנתקות', icon: 'out', cls: 'setrow--danger', nochev: true, attr: 'data-logout' })]) +
+    '</div><p class="demo-note">נתוני דוגמה</p>';
+}
+function viewLiked() {
+  var l = hearted();
+  return backLink('פרופיל') + '<h2 class="subh">אהבתי</h2>' + (l.length
+    ? '<div class="grid" id="grid">' + l.map(cardHtml).join('') + '</div>'
+    : '<div class="empty"><b>עוד לא אהבתם פריטים</b>לחצו על הלב בפיד כדי לשמור פריט כאן.</div>');
+}
+function viewRequests() {
+  var l = requested();
+  return backLink('פרופיל') + '<h2 class="subh">הבקשות שלי</h2>' + (l.length
+    ? '<div class="setlist reqlist">' + l.map(function (it) {
+      return '<button type="button" class="setrow reqrow" data-req="' + it.id + '"><span class="visual reqrow__v">' + art(it.kind) + '</span><span class="setrow__t"><b>' + esc(it.title) + '</b><small>' + S[it.s].name + ' · <span class="num">' + fmt(it.price) + ' ₪</span></small><em class="reqrow__st">מחכה לאישור המוכר</em></span>' + ic('chev', 'setrow__chev') + '</button>';
+    }).join('') + '</div>'
+    : '<div class="empty"><b>אין בקשות פתוחות</b>לחצו רוצה על פריט בפיד ותראו אותו כאן.</div>');
+}
+function viewShop() {
+  return '<div class="prof"><header class="prof__head"><span class="avatar avatar--xl" aria-hidden="true">' + ic('shop') + '</span><div><h2>תכשיטי יעקב</h2><p class="prof__city">רמת גן</p><p class="prof__ok">' + ic('shield') + '<span>חנות מאומתת</span></p></div></header>' +
+    group('מצב שימוש', [row({ t: 'מעבר למצב קונה', icon: 'user', attr: 'data-m="buyer"' })]) +
+    group('', [row({ t: 'התנתקות', icon: 'out', cls: 'setrow--danger', nochev: true, attr: 'data-logout' })]) + '</div><p class="demo-note">נתוני דוגמה</p>';
 }
 
 /* feed */
@@ -373,6 +419,8 @@ main.addEventListener('click', function (e) {
   var cv = t.closest('[data-conv]'); if (cv) { st.chat[st.mode] = cv.dataset.conv; st.chatList = false; st.lastKey = ''; render(); return; }
   if (t.closest('#chatBack')) { st.chatList = true; render(); return; }
   if (t.closest('#tipX')) { st.tipOff = true; $('#tip').remove(); return; }
+  if (t.closest('[data-logout]')) { toast('זה דמו, אין התנתקות אמיתית'); return; }
+  var rq = t.closest('[data-req]'); if (rq) { openChat(ITEMS.filter(function (x) { return x.id === +rq.dataset.req; })[0]); return; }
   var r = t.closest('[data-reach]'); if (r) { toast('דמו: ההודעה תישלח לקונה'); return; }
   var s = t.closest('[data-sort]'); if (s) { var c2 = s.dataset.sort; if (st.sortCol === c2) st.sortDir = -st.sortDir; else { st.sortCol = c2; st.sortDir = 1; } var f = c2; render(); var nb = $('[data-sort="' + f + '"]'); if (nb) nb.focus(); return; }
   var ed = t.closest('[data-edit]'); if (ed) { toast('דמו: מסך העריכה מחוץ לדמו'); return; }
@@ -459,8 +507,8 @@ function hideSheet(quiet) {
 $('#pWant').addEventListener('click', function () { st.wanted[curItem.id] = true; this.textContent = 'הבקשה נשלחה'; showSheet(); });
 scrim.addEventListener('click', function () { hideSheet(); });
 $('#wMore').addEventListener('click', function () { closePanel(); });
-$('#wChat').addEventListener('click', function () {
-  var it = curItem, s = S[it.s], id = 'w' + it.id;
+function openChat(it) {
+  var s = S[it.s], id = 'w' + it.id;
   var c = CHATS.buyer.filter(function (x) { return x.id === id; })[0];
   if (!c) {
     c = { id: id, name: s.name, role: (s.kind === 'shop' ? 'חנות' : 'מוכר פרטי') + ' · ' + s.rating + ' · ' + s.deals + ' עסקאות', item: it.id, time: 'עכשיו', unread: 0, msgs: [{ f: 'sys', t: 'ביקשת לקנות. מחכים לאישור המוכר.', h: '' }] };
@@ -469,7 +517,8 @@ $('#wChat').addEventListener('click', function () {
   st.chat.buyer = id; st.chatList = false; st.lastKey = '';
   opener = null; closePanel();
   if (location.hash === '#buyer/chats') render(); else location.hash = '#buyer/chats';
-});
+}
+$('#wChat').addEventListener('click', function () { openChat(curItem); });
 document.addEventListener('keydown', function (e) {
   if (!panel.classList.contains('is-open')) return;
   if (e.key === 'Escape') { if (sheet.classList.contains('is-on')) hideSheet(); else closePanel(); return; }
