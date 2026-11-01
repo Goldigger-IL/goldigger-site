@@ -1,0 +1,24 @@
+# גולדיגר — goldigger.co.il
+# מתירים במפורש את הזחלנים שקובעים אם אפשר לצטט אותנו בתשובות של מנועי חיפוש עם AI.
+# שימו לב: OAI-SearchBot, Claude-SearchBot ו-PerplexityBot הם אלה שמשמשים לחיפוש ולציטוט,
+# ולא GPTBot או ClaudeBot (שמשמשים לאימון). חוסמים או מתירים אותם בנפרד.
+
+User-agent: *
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://goldigger.co.il/sitemap.xml
