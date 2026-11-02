@@ -151,7 +151,15 @@
   </div>
 </section>
 
-<section class="sec" id="story" tabindex="-1" aria-labelledby="story-h">
+
+<div class="who js-only" role="group" aria-label="מה מעניין אתכם?">
+  <div class="who__track" data-who="buy">
+    <button type="button" class="who__btn" data-who="buy" aria-pressed="true" aria-controls="story">קונים</button>
+    <button type="button" class="who__btn" data-who="sell" aria-pressed="false" aria-controls="story-sell">מוכרים</button>
+  </div>
+</div>
+
+<section class="sec story" id="story" data-story tabindex="-1" aria-labelledby="story-h">
   <div class="wrap">
     <span class="kicker rv">האפליקציה</span>
     <h2 class="h2 rv" id="story-h" style="--d:80ms">מהפיד ועד הפגישה.</h2>
@@ -166,13 +174,35 @@
       </ol>
       <div class="story__pin" aria-hidden="true">
         <span class="story__glow"></span>
-        <div class="phone"><div class="phone__screen" id="pin-screen"><span class="phone__notch"></span>
+        <div class="phone"><div class="phone__screen"><span class="phone__notch"></span>
           <img class="on" src="img/01-feed.webp" alt=""><img src="img/02-shuki.webp" alt="" loading="lazy"><img src="img/04-chat.webp" alt="" loading="lazy"><img src="img/05-alerts.webp" alt="" loading="lazy"><img src="img/03-gold.webp" alt="" loading="lazy"><img src="img/06-shops.webp" alt="" loading="lazy">
         </div></div>
       </div>
     </div>
   </div>
 </section>
+
+<section class="sec story story--sell" id="story-sell" data-story tabindex="-1" aria-labelledby="story-sell-h">
+  <div class="wrap">
+    <span class="kicker rv">לחנויות ולסוחרים</span>
+    <h2 class="h2 rv" id="story-sell-h" style="--d:80ms">מהעלאה ועד מכירה.</h2>
+    <div class="story__grid">
+      <ol class="steps">
+        <li class="step" data-shot="0"><span class="step__n">1</span><h3>מעלים תכשיט בדקה.</h3><p>מצלמים, בוחרים סוג וקראט, כותבים משקל ומחיר. זהו, התכשיט כבר מול הקונים.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s1-sell.webp" width="1180" height="738" alt="מסך העלאת תכשיט: צילום, סוג, קראט וצבע הזהב" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+        <li class="step" data-shot="1"><span class="step__n">2</span><h3>כל החנות במסך אחד.</h3><p>כמה פריטים בפיד, כמה נמכרו החודש, כמה פניות וכמה צפיות. בלי אקסלים ובלי ניחושים.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s2-desk.webp" width="1180" height="738" alt="לוח הניהול של החנות: פריטים בפיד, מכירות, פניות וצפיות" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+        <li class="step" data-shot="2"><span class="step__n">3</span><h3>שוקי אומר לכם איפה המחיר עומד.</h3><p>כל פריט מושווה רק לחנויות אחרות: מחיר טוב, הוגן או מעל הממוצע. מתמחרים נכון ומוכרים מהר יותר.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s3-shuki.webp" width="1180" height="738" alt="מה שוקי חושב על המחירים של החנות: מחיר טוב, הוגן ומעל הממוצע" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+        <li class="step" data-shot="3"><span class="step__n">4</span><h3>כל הפריטים בטבלה אחת.</h3><p>ממיינים, מסננים, ומסמנים "נמכר" או משהים בלחיצה. גם כשיש עשרות פריטים.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s4-table.webp" width="1180" height="738" alt="טבלת הפריטים של החנות עם מחיר, מחיר לגרם, שוקי, צפיות ופניות" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+        <li class="step" data-shot="4"><span class="step__n">5</span><h3>רואים מה נמכר.</h3><p>מכירות לפי חודש ולפי סוג תכשיט. יודעים מה כדאי להעלות עוד.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s5-sales.webp" width="1180" height="738" alt="גרף המכירות של החנות לפי חודש" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+        <li class="step" data-shot="5"><span class="step__n">6</span><h3>הקונים מגיעים אליכם.</h3><p>דף חנות עם כתובת, מפה, ניווט ותג מאומת. הקונה פונה בצ׳אט, מגיע לחנות ומשלם לכם ישירות. בלי עמלה.</p><div class="step__shot"><div class="laptop"><div class="laptop__screen"><img src="img/s6-shop.webp" width="1180" height="738" alt="דף החנות כפי שהקונים רואים אותו: כתובת, מפה ותג מאומת" loading="lazy"></div><span class="laptop__base"></span></div></div></li>
+      </ol>
+      <div class="story__pin" aria-hidden="true">
+        <span class="story__glow"></span>
+        <div class="laptop"><div class="laptop__screen"><img class="on" src="img/s1-sell.webp" alt="" loading="lazy"><img src="img/s2-desk.webp" alt="" loading="lazy"><img src="img/s3-shuki.webp" alt="" loading="lazy"><img src="img/s4-table.webp" alt="" loading="lazy"><img src="img/s5-sales.webp" alt="" loading="lazy"><img src="img/s6-shop.webp" alt="" loading="lazy"></div><span class="laptop__base"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="sec" id="vs" tabindex="-1" aria-labelledby="vs-h" style="padding-top:0">
   <div class="wrap">

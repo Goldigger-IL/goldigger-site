@@ -78,20 +78,43 @@
     jo.observe($('.judge__grid'));
   } else demo = false;
 
-  // ---- הסיפור: הטלפון נשאר במקום והמסך מתחלף לפי השלב
-  const shots = $$('#pin-screen img'), steps = $$('.step'), heads = steps.map((s) => s.querySelector('h3'));
-  let cur = -1, sTick = false;
+  // ---- הסיפור: המכשיר נשאר במקום והמסך מתחלף לפי השלב (קונים: טלפון, מוכרים: מחשב)
+  const stories = $$('[data-story]').map((sec) => {
+    const steps = $$('.step', sec);
+    return { sec, shots: $$('.story__pin img', sec), steps, heads: steps.map((s) => s.querySelector('h3')), cur: -1 };
+  });
+  let sTick = false;
   function syncStory() {
     sTick = false;
-    // השלב הפעיל = זה שהכותרת שלו הכי קרובה לאמצע המסך, בדיוק איפה שהטלפון עומד
-    const mid = innerHeight / 2; let best = 0, bestD = Infinity;
-    heads.forEach((h, i) => { const r = h.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
-    if (best === cur) return; cur = best;
-    steps.forEach((s, i) => s.classList.toggle('on', i === best));
-    const shot = +steps[best].dataset.shot; shots.forEach((im, j) => im.classList.toggle('on', j === shot));
+    // השלב הפעיל = זה שהכותרת שלו הכי קרובה לאמצע המסך, בדיוק איפה שהמכשיר עומד
+    const mid = innerHeight / 2;
+    stories.forEach((st) => {
+      if (st.sec.hidden) return;
+      let best = 0, bestD = Infinity;
+      st.heads.forEach((h, i) => { const r = h.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
+      if (best === st.cur) return; st.cur = best;
+      st.steps.forEach((s, i) => s.classList.toggle('on', i === best));
+      const shot = +st.steps[best].dataset.shot; st.shots.forEach((im, j) => im.classList.toggle('on', j === shot));
+    });
   }
   addEventListener('scroll', () => { if (!sTick) { sTick = true; requestAnimationFrame(syncStory); } }, { passive: true });
   addEventListener('resize', syncStory);
+
+  // ---- מתג קונים / מוכרים: מחליף את חלק הסיפור שמתחת
+  const whoTrack = $('.who__track'), whoBtns = $$('.who__btn'), buySec = $('#story'), sellSec = $('#story-sell');
+  function setWho(who, scroll) {
+    whoTrack.dataset.who = who;
+    whoBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.who === who)));
+    buySec.hidden = who !== 'buy'; sellSec.hidden = who !== 'sell';
+    stories.forEach((st) => (st.cur = -1));
+    $$('.rv', who === 'buy' ? buySec : sellSec).forEach((e) => e.classList.add('in'));
+    syncStory();
+    if (scroll) (who === 'buy' ? buySec : sellSec).scrollIntoView({ block: 'start' });
+  }
+  if (whoTrack && buySec && sellSec) {
+    whoBtns.forEach((b) => b.addEventListener('click', () => setWho(b.dataset.who, false)));
+    setWho(location.hash === '#story-sell' ? 'sell' : 'buy', location.hash === '#story-sell');
+  }
   syncStory();
 
   // (הספירה לאחור למבצע הוסרה 2.11.2026: לקונים זה חינם, תמיד)
