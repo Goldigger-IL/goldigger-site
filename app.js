@@ -100,6 +100,9 @@
   const bloom = $('[data-bloom]'), trig = $('.bloom__trigger', bloom), panel = $('.bloom__panel', bloom), closeBtn = $('.bloom__close', bloom);
   const links = $$('.bloom__grid a', panel), COLS = 3;
   let open = false, anim = null;
+  // כשהתפריט פתוח, שאר הדף לא פעיל (גם לקורא מסך), כדי שלא ייצאו מהתפריט בטעות
+  const behind = $$('.skip, #nav .logo, .nav__end > .btn, main, body > footer');
+  const setInert = (on) => behind.forEach((el) => { el.inert = on; });
   const startClip = () => {
     const p = panel.getBoundingClientRect(), b = trig.getBoundingClientRect();
     return `inset(${b.top - p.top}px ${p.right - b.right}px ${p.bottom - b.bottom}px ${b.left - p.left}px round 22px)`;
@@ -107,7 +110,7 @@
   function setOpen(next, focusBack = true) {
     if (next === open) return; open = next; trig.setAttribute('aria-expanded', open); anim && anim.cancel();
     if (open) {
-      panel.hidden = false; bloom.classList.add('is-open');
+      panel.hidden = false; bloom.classList.add('is-open'); setInert(true);
       if (!still.matches) {
         anim = panel.animate([{ clipPath: startClip() }, { clipPath: 'inset(0px 0px 0px 0px round 26px)' }], { duration: 420, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' });
         const rows = Math.ceil(links.length / COLS), cx = (COLS - 1) / 2, cy = (rows - 1) / 2;
@@ -118,6 +121,7 @@
       }
       requestAnimationFrame(() => links[0].focus({ preventScroll: true }));
     } else {
+      setInert(false);
       const done = () => { panel.hidden = true; bloom.classList.remove('is-open'); if (focusBack) trig.focus({ preventScroll: true }); };
       if (still.matches) done();
       else { anim = panel.animate([{ clipPath: 'inset(0px 0px 0px 0px round 26px)' }, { clipPath: startClip() }], { duration: 220, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }); anim.onfinish = done; }
