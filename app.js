@@ -94,6 +94,8 @@
   addEventListener('resize', syncStory);
   syncStory();
 
+  // (הספירה לאחור למבצע הוסרה 2.11.2026: לקונים זה חינם, תמיד)
+
   // ---- התפריט: הכפתור נפתח לפאנל, והפריטים נכנסים מהמרכז החוצה
   const bloom = $('[data-bloom]'), trig = $('.bloom__trigger', bloom), panel = $('.bloom__panel', bloom), closeBtn = $('.bloom__close', bloom);
   const links = $$('.bloom__grid a', panel), COLS = 3;
