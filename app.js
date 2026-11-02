@@ -94,19 +94,6 @@
   addEventListener('resize', syncStory);
   syncStory();
 
-  // ---- ספירה לאחור עד סוף המבצע (12.12.2026, סוף היום בישראל)
-  const END = Date.parse('2026-12-12T23:59:59+02:00');
-  const cells = { d: $('[data-u="d"]'), h: $('[data-u="h"]'), m: $('[data-u="m"]'), s: $('[data-u="s"]') };
-  const two = (n) => String(n).padStart(2, '0');
-  let timer;
-  function tick() {
-    const left = Math.max(0, END - Date.now());
-    if (left === 0) { $$('[data-live="on"]').forEach((e) => (e.hidden = true)); $$('[data-live="off"]').forEach((e) => (e.hidden = false)); clearInterval(timer); return; }
-    cells.d.textContent = Math.floor(left / 864e5); cells.h.textContent = two(Math.floor(left / 36e5) % 24);
-    cells.m.textContent = two(Math.floor(left / 6e4) % 60); cells.s.textContent = two(Math.floor(left / 1e3) % 60);
-  }
-  timer = setInterval(tick, 1000); tick();
-
   // ---- התפריט: הכפתור נפתח לפאנל, והפריטים נכנסים מהמרכז החוצה
   const bloom = $('[data-bloom]'), trig = $('.bloom__trigger', bloom), panel = $('.bloom__panel', bloom), closeBtn = $('.bloom__close', bloom);
   const links = $$('.bloom__grid a', panel), COLS = 3;
