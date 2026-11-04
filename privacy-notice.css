@@ -1,0 +1,18 @@
+/* הודעת הפרטיות. צבעים קבועים כאן, כי לכל דף משתנים משלו. */
+.gpn-bar { position: fixed; z-index: 900; inset-inline: 12px; bottom: 12px; max-width: 720px; margin-inline: auto; background: #fff; color: #15130F; border: 1px solid #E4DED2; border-radius: 12px; padding: 14px 18px; font: 400 15px/1.6 Rubik, "Arial Hebrew", system-ui, sans-serif; box-shadow: 0 8px 24px -12px rgb(21 19 15 / 0.25); }
+.gpn-t, .gpn-h { margin: 0 0 4px; font-family: inherit; font-size: 16px; font-weight: 500; line-height: 1.3; letter-spacing: 0; text-wrap: wrap; }
+.gpn-h { font-size: 19px; margin-bottom: 8px; }
+.gpn-p { margin: 0; font-size: 14.5px; line-height: 1.65; color: #5E574C; }
+.gpn-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.gpn-btn { min-height: 44px; padding: 0 20px; border-radius: 8px; border: 1px solid #8A6210; background: #fff; color: #15130F; font: 500 15px/1 Rubik, "Arial Hebrew", system-ui, sans-serif; cursor: pointer; }
+.gpn-main { background: #E8B84A; }
+.gpn-btn:focus-visible, .gpn-link:focus-visible, .gpn-foot:focus-visible { outline: 3px solid #8A6210; outline-offset: 3px; }
+.gpn-x { position: absolute; top: 4px; left: 6px; right: auto; min-height: 40px; width: 40px; padding: 0; border: 0; background: transparent; font-size: 24px; color: #5E574C; }
+.gpn-link { margin-inline-start: auto; color: #8A6210; font-size: 14.5px; text-decoration: underline; padding: 10px 0; }
+.gpn-dlg { width: min(520px, calc(100% - 32px)); max-height: 90vh; overflow: auto; border: 0; border-radius: 12px; padding: 22px; background: #fff; color: #15130F; font: 400 15px/1.6 Rubik, "Arial Hebrew", system-ui, sans-serif; direction: rtl; }
+.gpn-dlg::backdrop { background: rgb(21 19 15 / 0.55); }
+.gpn-item { display: grid; gap: 2px; border-top: 1px solid #E4DED2; padding: 10px 0; margin-top: 10px; font-size: 14.5px; color: #5E574C; }
+.gpn-item strong { color: #15130F; font-weight: 500; font-size: 15px; }
+.gpn-foot { appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: none; }
+.gpn-foot:hover { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .gpn-bar { transition: none; } }
