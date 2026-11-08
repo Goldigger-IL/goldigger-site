@@ -1,0 +1,75 @@
+/* מחשבון "כמה שווה הזהב שלי". נשען על ../style.css (גופנים, צבעים, כפתורים, פס עליון ותחתון). */
+.gv { padding-top: 120px; }
+.gv-head { max-width: 760px; margin-inline: auto; text-align: center; padding-block: 20px 34px; }
+.gv-head h1 { font-size: clamp(42px, 7.4vw, 84px); }
+.gv-head .sub { margin-inline: auto; max-width: 36ch; }
+.gv-center { text-align: center; margin-inline: auto; max-width: 60ch; }
+
+.gv-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 20px; max-width: 1080px; margin-inline: auto; align-items: start; }
+.gv-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 3vw, 34px); box-shadow: 0 30px 60px -44px var(--brown-a60); }
+.gv-card h2 { font-size: clamp(25px, 2.6vw, 31px); margin-bottom: 18px; }
+
+.gv-k { border: 0; margin: 0 0 20px; padding: 0; min-width: 0; }
+.gv-k legend { padding: 0; margin-bottom: 10px; font-weight: 700; font-size: 19px; }
+.gv-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.gv-seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.gv-chip { position: relative; display: block; }
+.gv-chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.gv-chip span { display: grid; place-content: center; gap: 2px; min-height: 66px; padding: 8px; border: 2px solid var(--line); border-radius: 16px; background: var(--bg); text-align: center; line-height: 1.15; transition: border-color 160ms ease, background-color 160ms ease; }
+.gv-seg .gv-chip span { min-height: 54px; }
+.gv-chip b { font-size: 22px; font-weight: 800; }
+.gv-seg .gv-chip b { font-size: 18px; font-weight: 700; }
+.gv-chip small { font-size: 15px; color: var(--muted); }
+.gv-chip input:hover + span { border-color: var(--gold); }
+.gv-chip input:checked + span { border-color: var(--gold-deep); background: var(--cream); box-shadow: inset 0 0 0 1px var(--gold-deep); }
+.gv-chip input:focus-visible + span { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
+
+.gv-field { display: grid; gap: 6px; margin-bottom: 18px; }
+.gv-field label { font-weight: 700; font-size: 19px; }
+.gv-input { width: 100%; min-height: 58px; padding: 0 18px; border: 2px solid var(--muted); border-radius: 16px; background: var(--bg); color: var(--ink); font: 700 24px/1 var(--font); text-align: right; }
+.gv-input:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; border-color: var(--gold-deep); }
+.gv-input[aria-invalid="true"] { border-color: var(--high); }
+.gv-hint { margin: 0; font-size: 16px; line-height: 1.5; color: var(--muted); }
+.gv-k .gv-hint { margin-top: 10px; }
+.gv-err { margin: 0; font-size: 16px; font-weight: 700; color: var(--high); }
+
+.gv-out { padding: 20px 22px; border-radius: 20px; background: var(--cream); }
+.gv-lbl { display: block; font-size: 17px; font-weight: 500; color: var(--ink-2); }
+.gv-big { display: block; margin: 4px 0 8px; font-size: clamp(44px, 7vw, 64px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+.gv-out[data-state="empty"] .gv-big { color: var(--muted); }
+.gv-how { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+.gv-src { margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
+
+.gv-cmp { padding: 16px 18px; border-radius: 18px; background: var(--cream); border-inline-start: 6px solid var(--gold); }
+.gv-cmp[data-tone="good"] { background: var(--great-bg); border-color: var(--great); }
+.gv-cmp[data-tone="warn"] { background: var(--high-bg); border-color: var(--high); }
+.gv-cmp-h { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.35; }
+.gv-cmp[data-tone="idle"] .gv-cmp-h { font-size: 18px; font-weight: 500; color: var(--ink-2); }
+.gv-cmp-b { margin: 6px 0 0; font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+.gv-cmp-b:empty { display: none; }
+.gv-guide { margin: 16px 0 0; font-size: 17px; line-height: 1.55; color: var(--ink-2); }
+.gv-cta { margin-top: 20px; display: grid; gap: 8px; justify-items: start; }
+.gv-cta small { font-size: 16px; color: var(--muted); }
+
+.gv-note { margin-top: 18px; font-size: 16px; line-height: 1.5; color: var(--muted); }
+.gv-sec { max-width: 760px; margin: 64px auto 0; }
+.gv-sec h2 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px; }
+.gv-sec h3 { font-size: 21px; margin: 24px 0 6px; line-height: 1.3; }
+.gv-sec p { margin: 0 0 12px; font-size: 19px; line-height: 1.65; color: var(--ink-2); }
+.gv-tablewrap { overflow-x: auto; }
+.gv-table { width: 100%; border-collapse: collapse; font-size: 19px; }
+.gv-table caption { caption-side: bottom; text-align: start; padding-top: 10px; }
+.gv-table th, .gv-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: start; }
+.gv-table thead th { font-size: 15px; font-weight: 700; color: var(--muted); }
+.gv-table tbody th { font-weight: 700; }
+.gv-table td:last-child { font-weight: 800; }
+.gv-steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 12px; }
+.gv-steps li { display: flex; gap: 12px; align-items: flex-start; font-size: 19px; line-height: 1.55; color: var(--ink-2); counter-increment: s; }
+.gv-steps li::before { content: counter(s); flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: var(--gold-ink); font-weight: 800; font-size: 17px; }
+
+@media (max-width: 900px) { .gv-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .gv { padding-top: 100px; } .gv-chip b { font-size: 20px; } }
+@media (forced-colors: active) {
+  .gv-chip input:checked + span { outline: 3px solid Highlight; }
+  .gv-cmp { border: 2px solid CanvasText; }
+}
