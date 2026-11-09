@@ -62,7 +62,10 @@
 <main id="main">
 <section class="hero" id="top" aria-labelledby="h1">
   <div class="wrap">
+    <div class="hero__tags">
     <a class="tag tag--link rv" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener"><b aria-hidden="true"></b>גרסת הבטא פתוחה עכשיו, לאייפון</a>
+    <a class="tag tag--link tag--dia rv" style="--d:40ms" href="#diamonds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M9 3l3 6 3-6M12 21 9 9m3 12 3-12"/></svg><span class="tag__new">חדש:</span> גם יהלומים, בעיניים פקוחות<span aria-hidden="true">←</span></a>
+    </div>
     <h1 id="h1" class="rv" style="--d:80ms">קונים זהב <span>בטוח.</span></h1>
     <p class="lead rv" style="--d:160ms">בגולדיגר אנחנו בודקים כל תכשיט לפי המחיר האמיתי לגרם בשוק, ומציגים לכם את כל הידע לפני הקנייה. כמו שצריך להיות.</p>
     <div class="actions rv" style="--d:240ms">
@@ -182,6 +185,39 @@
   </div>
 </section>
 
+<section class="sec dia" id="diamonds" tabindex="-1" aria-labelledby="dia-h">
+  <div class="wrap dia__grid">
+    <div class="dia__text">
+      <span class="kicker rv">יהלומים</span>
+      <h2 class="h2 rv" id="dia-h" style="--d:80ms">זו הטבעת הכי חשובה שתקנו. <span>קנו אותה בעיניים פקוחות!</span></h2>
+      <p class="sub rv" style="--d:160ms">יהלום הוא הקנייה שהכי קשה לדעת בה אם המחיר הוגן. בגולדיגר רואים את הנתונים לפני שפונים למוכר.</p>
+      <ol class="dia__points rv" style="--d:200ms">
+        <li><span aria-hidden="true">1</span><div><h3>מחיר לקראט, בלי חישובים.</h3><p>כל יהלום מוצג עם המחיר וגם עם המחיר לקראט. כל דירוג, כמו צבע, ניקיון וחיתוך, מוסבר במילים פשוטות.</p></div></li>
+        <li><span aria-hidden="true">2</span><div><h3>תעודה שאפשר להצליב בלחיצה.</h3><p>מספר התעודה מוצג בדף, עם קישור לבדיקה באתר המעבדה. גולדיגר לא בודקת תעודות, ולכן נותנים לכם את הכלים לבדוק בעצמכם לפני תשלום.</p></div></li>
+        <li><span aria-hidden="true">3</span><div><h3>ישר למוכר, בלי עמלה.</h3><p>פותחים שיחה עם המוכר מהדף של היהלום. גולדיגר לא לוקחת עמלה, והעסקה נעשית ביניכם.</p></div></li>
+      </ol>
+      <div class="dia__actions rv" style="--d:240ms">
+        <a class="btn btn--gold" href="https://app.goldigger.co.il/diamonds?src=landing-diamonds" rel="noopener">לגלישה ביהלומים</a>
+        <a class="btn dia__ghost" href="https://app.goldigger.co.il/diamonds/sell?src=landing-diamonds" rel="noopener">רוצים למכור? פריט אחד בחינם</a>
+      </div>
+      <p class="dia__fine rv">פריט אחד בחינם לאדם פרטי בכל רגע, זהב או יהלום. גולדיגר מחברת בין קונים למוכרים ואינה צד לעסקה.</p>
+    </div>
+    <div class="dia__card rv-scale" role="group" aria-label="דוגמה להמחשה: כרטיס של יהלום">
+      <div class="dia__cardhead"><span class="dia__type">יהלום טבעי</span><small>דוגמה להמחשה</small></div>
+      <h3>יהלום עגול, <span class="num">1.00</span> קראט</h3>
+      <dl class="dia__specs">
+        <div><dt>צבע</dt><dd class="num">F</dd></div>
+        <div><dt>ניקיון</dt><dd class="num">VS1</dd></div>
+        <div><dt>חיתוך</dt><dd class="num">Excellent</dd></div>
+        <div><dt>מעבדה</dt><dd class="num">GIA</dd></div>
+      </dl>
+      <p class="dia__cert"><span>תעודה: <span class="num">GIA</span></span><a href="https://www.gia.edu/report-check" rel="noopener noreferrer">בדיקה באתר המעבדה ↗</a></p>
+      <p class="dia__warn">גולדיגר לא בודקת תעודות. הצליבו את המספר לפני תשלום.</p>
+      <div class="dia__chat" aria-hidden="true">פתיחת שיחה עם המוכר</div>
+    </div>
+  </div>
+</section>
+
 <section class="sec story story--sell" id="story-sell" data-story tabindex="-1" aria-labelledby="story-sell-h">
   <div class="wrap">
     <span class="kicker rv">לחנויות ולסוחרים</span>
@@ -261,12 +297,13 @@
       <span class="kicker rv">לחנויות ולסוחרים</span>
       <h2 class="h2 rv" id="shops-h" style="--d:80ms">הקונים כבר מחפשים.</h2>
       <p class="sub rv" style="--d:160ms">רשימה של מה שקונים חיפשו ולא מצאו, לפי סוג תכשיט. יש לכם? פונים אליהם בצ׳אט.</p>
+      <p class="shops__dia rv" style="--d:180ms">יש לכם גם יהלומים? פרסמו יהלום והציעו להרכיב אותו על תכשיט, בתוספת מחיר שאתם קובעים.</p>
       <ol class="howto rv" style="--d:200ms"><li>מתקינים את TestFlight מהאפ סטור</li><li>לוחצים על הכפתור ומתקינים את גולדיגר</li><li>נרשמים כחנות ומעלים את התכשיטים</li></ol>
       <a class="btn btn--ink rv" style="--d:240ms" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener">להורדה דרך TestFlight</a>
     </div>
     <div class="price-list rv-scale">
       <div><p><b>3 החודשים הראשונים</b><span>כל מה שיש ב-Pro</span></p><em class="num big">0 ₪</em></div>
-      <div><p><b>אחר כך, Pro לחודש</b><span>עד 100 פריטים, בחידוש אוטומטי</span></p><em class="num">199 ₪</em></div>
+      <div><p><b>אחר כך, Pro לחודש</b><span>עד 100 פריטים, זהב ויהלומים יחד, בחידוש אוטומטי</span></p><em class="num">199 ₪</em></div>
       <div><p><b>או לפי פריט</b><span>ל-30 יום. (מ-21 פריטים Pro זול יותר)</span></p><em class="num">9.90 ₪</em></div>
       <div><p><b>לוח בקרה ב-Pro</b><span>פריטים, מכירות וצפיות</span></p><em>כלול</em></div>
       <div><p><b>תג זהב קבוע</b><span>ל-50 החנויות הראשונות</span></p><em>מתנה</em></div>
