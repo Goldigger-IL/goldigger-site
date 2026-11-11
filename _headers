@@ -1,0 +1,21 @@
+# כותרות אבטחה ל-goldigger.co.il ב-Cloudflare Pages (11.11.2026, אישר ידידיה מעבר מ-GitHub Pages).
+# המדיניות: רק קבצים מהאתר עצמו. החריג היחיד: מחשבון שווי הזהב פונה ל-Supabase שלנו לקבלת מחיר הזהב.
+# - style-src כולל 'unsafe-inline' כי בדפים יש <style> ו-style="..." (בלי סקריפטים בתוך הדף: script-src 'self' בלבד).
+# - HSTS בלי includeSubDomains ובלי preload, כמו באפליקציה: לא לנעול בטעות תת-דומיינים, וקל לבטל.
+# - כתובת הבדיקה pages.dev לא נכנסת לגוגל (noindex), כדי שלא יהיה עותק כפול של האתר.
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://fmfrhmfulnianzjhdkey.supabase.co; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+/fonts/*
+  Cache-Control: public, max-age=2592000
+/img/*
+  Cache-Control: public, max-age=604800
