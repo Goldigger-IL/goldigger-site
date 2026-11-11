@@ -1,5 +1,6 @@
 /* מחשבון "כמה שווה הזהב שלי".
-   החישוב כולו בדפדפן. נשלחת לשרת בקשה אחת בלבד: מחיר הזהב האחרון (טבלה ציבורית לקריאה).
+   החישוב כולו בדפדפן. נשלחות לשרת רק שתי בקשות: מחיר הזהב האחרון (טבלה ציבורית לקריאה),
+   וממוצע המחירים בגולדיגר לפי דרגה וסוג תכשיט (site_price_estimate: אחוז ממוצע מעל שווי הזהב, רק מ-10 פריטים ומעלה).
    מה שהמשתמש מקליד (משקל, מחיר) לא נשלח לשום מקום ולא נשמר. */
 (function () {
   'use strict';
@@ -10,12 +11,16 @@
   var FALLBACK = { gram24: 418.19, at: '2026-11-08T07:00:05Z' };
   var FINE = { '375': 0.375, '585': 0.585, '750': 0.75, '875': 0.875, '916': 0.916, '999': 0.999 };
   var MAX_GRAMS = 2000;
+  var MKT_API = 'https://fmfrhmfulnianzjhdkey.supabase.co/rest/v1/rpc/site_price_estimate';
+  var KARAT = { '375': 9, '585': 14, '750': 18, '875': 21, '916': 22, '999': 24 };
   var APP = 'https://app.goldigger.co.il/';
 
   var $ = function (id) { return document.getElementById(id); };
   var form = $('calc'), w = $('w'), wErr = $('w-err'), out = $('out'), big = $('big'), how = $('how'), src = $('src');
   var p = $('p'), pErr = $('p-err'), pLabel = $('p-label'), cmp = $('cmp'), cmpH = $('cmp-h'), cmpB = $('cmp-b');
   var guide = $('guide'), cta = $('cta'), ctaFine = $('cta-fine'), tBody = $('t-body'), tCap = $('t-cap');
+  var cat = $('cat'), mkt = $('mkt'), mktLbl = $('mkt-lbl'), mktBig = $('mkt-big'), mktHow = $('mkt-how'), cmpM = $('cmp-m');
+  var market = {}; // לפי "דרגה|סוג": undefined = טוען, null = שגיאה, אחרת התשובה מהשרת
   if (!form) return;
 
   var whole = new Intl.NumberFormat('he-IL', { maximumFractionDigits: 0 });
@@ -66,6 +71,50 @@
     return r ? r.value : fallback;
   }
 
+  function mktKey() { return picked('fine', '585') + '|' + (cat ? cat.value : ''); }
+
+  // מחיר ממוצע לגרם בגולדיגר, לפי מחיר הזהב של היום: {perGram, n, sold} או null כשאין מספיק נתונים
+  function marketPerGram(fine) {
+    var m = market[mktKey()];
+    if (!m) return null;
+    var x = m.sold || m.asking;
+    if (!x || typeof x.premium !== 'number') return null;
+    return { perGram: price.gram24 * fine * (1 + x.premium), n: x.n, sold: !!m.sold, min: m.min || 10 };
+  }
+
+  function showMarket(fine, grams) {
+    if (!mkt) return;
+    var key = mktKey(), m = market[key], est = marketPerGram(fine);
+    if (m === undefined) { mkt.dataset.state = 'empty'; mktBig.textContent = '—'; mktHow.textContent = 'טוענים את המחירים בגולדיגר…'; return; }
+    if (m === null) { mkt.dataset.state = 'error'; mktBig.textContent = '—'; mktHow.textContent = 'לא הצלחנו לטעון את המחירים בגולדיגר כרגע. שווי הזהב למעלה מעודכן.'; return; }
+    if (!est) {
+      mkt.dataset.state = 'none';
+      mktLbl.textContent = 'כמה מקבלים על זה בגולדיגר';
+      mktBig.textContent = '—';
+      fill(mktHow, ['אין עדיין מספיק נתונים בגולדיגר על תכשיטים כאלה. אנחנו מציגים ממוצע רק כשיש לפחות ', { n: String(m.min || 10) }, ' פריטים, כדי שמוכר אחד לא ישפיע עליו.']);
+      return;
+    }
+    mkt.dataset.state = 'ok';
+    mktLbl.textContent = est.sold ? 'כמה מקבלים על זה בגולדיגר' : 'כמה מבקשים על זה בגולדיגר';
+    mktBig.textContent = grams ? money(est.perGram * grams) : money(est.perGram) + ' לגרם';
+    if (est.sold) fill(mktHow, ['תכשיטים דומים נמכרו בגולדיגר בממוצע ב-', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' עסקאות מחצי השנה האחרונה. זו הערכה, לא הצעת מחיר.']);
+    else fill(mktHow, ['מוכרים בגולדיגר מבקשים על תכשיטים דומים בממוצע ', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' פריטים. זה מחיר מבוקש, לא מחיר שבו נמכרו.']);
+  }
+
+  function loadMarket() {
+    var key = mktKey();
+    if (key in market) { update(); return; }
+    market[key] = undefined;
+    if (typeof fetch !== 'function') { market[key] = null; update(); return; }
+    var body = { p_karat: KARAT[picked('fine', '585')] };
+    if (cat && cat.value) body.p_category = cat.value;
+    fetch(MKT_API, { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (res) { if (!res.ok) throw new Error('http ' + res.status); return res.json(); })
+      .then(function (d) { market[key] = d && typeof d === 'object' ? d : { sold: null, asking: null }; })
+      .catch(function () { market[key] = null; })
+      .then(update);
+  }
+
   function update() {
     var fine = FINE[picked('fine', '585')], g = parseGrams(w.value), value = null;
     setErr(w, wErr, g.error);
@@ -79,10 +128,11 @@
       big.textContent = '—';
       how.textContent = 'הכניסו משקל כדי לראות את השווי.';
     }
-    compare(value);
+    showMarket(fine, g.value || 0);
+    compare(value, g.value ? marketPerGram(fine) : null, g.value || 0);
   }
 
-  function compare(value) {
+  function compare(value, est, grams) {
     var sell = picked('mode', 'sell') === 'sell', got = parseShekels(p.value);
     pLabel.textContent = sell ? 'כמה הציעו לכם? (בשקלים)' : 'כמה מבקשים מכם? (בשקלים)';
     guide.textContent = sell
@@ -92,6 +142,8 @@
     ctaFine.textContent = sell ? 'פריט אחד בחינם. קונים פונים אליכם בצ׳אט.' : 'לקונים גולדיגר חינם, תמיד.';
     cta.href = APP;
     setErr(p, pErr, got.error);
+    cmpM.hidden = true;
+    cmpM.textContent = '';
 
     if (value === null || !got.value) {
       cmp.dataset.tone = 'idle';
@@ -116,6 +168,14 @@
       cmp.dataset.tone = 'warn';
       fill(cmpH, ['המחיר נמוך משווי הזהב: ', { n: percent(r) }, '.']);
       cmpB.textContent = 'מחיר מתחת לשווי הזהב הוא סיבה לבדוק לפני שמשלמים: חותמת, משקל מולכם, ומי המוכר.';
+    }
+    // מול הממוצע בגולדיגר: 300 ₪ לגרם יכול להיות "יקר" מול שווי הזהב, ועדיין מחיר רגיל או טוב באתר
+    if (est && grams) {
+      var avg = est.perGram * grams, r2 = got.value / avg, word = est.sold ? 'הממוצע שבו נמכרים תכשיטים דומים בגולדיגר' : 'הממוצע שמבקשים בגולדיגר על תכשיטים דומים';
+      cmpM.hidden = false;
+      if (Math.abs(r2 - 1) < 0.05) fill(cmpM, ['זה בערך ', word, ' (', { n: money(avg) }, ').']);
+      else if (r2 > 1) fill(cmpM, ['זה ', { n: percent(r2 - 1) }, ' מעל ', word, ' (', { n: money(avg) }, ').']);
+      else fill(cmpM, ['זה ', { n: percent(1 - r2) }, ' מתחת ל', word, ' (', { n: money(avg) }, ').']);
     }
   }
 
@@ -147,7 +207,10 @@
 
   form.addEventListener('submit', function (e) { e.preventDefault(); });
   form.addEventListener('input', update);
-  form.addEventListener('change', update);
+  form.addEventListener('change', function (e) {
+    if (e.target && (e.target.name === 'fine' || e.target === cat)) loadMarket(); else update();
+  });
   update();
   loadPrice();
+  loadMarket();
 })();

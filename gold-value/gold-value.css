@@ -73,3 +73,8 @@
   .gv-chip input:checked + span { outline: 3px solid Highlight; }
   .gv-cmp { border: 2px solid CanvasText; }
 }
+
+/* ממוצע המחירים בגולדיגר: אותו כרטיס כמו שווי הזהב, בצבע שונה כדי שלא יתבלבלו בין השניים */
+.gv-mkt { margin-top: 4px; background: var(--card, #fff); border: 2px solid var(--gold); }
+.gv-mkt[data-state="none"] .gv-big, .gv-mkt[data-state="error"] .gv-big { color: var(--muted); }
+select.gv-input { appearance: auto; }
