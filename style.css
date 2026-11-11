@@ -83,6 +83,7 @@ a { color: inherit; }
 @keyframes shine { 0% { background-position: 100% 0; } 60%, 100% { background-position: -20% 0; } }
 .hero .lead { position: relative; margin: 24px auto 0; max-width: 34ch; font-size: clamp(23px, 2.2vw, 31px); color: var(--ink-2); }
 .hero .actions { position: relative; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.offer .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
 .stage { position: relative; height: clamp(560px, 72vw, 820px); margin-top: 56px; }
 .phone { position: relative; width: 300px; aspect-ratio: 996 / 2160; border-radius: 48px; padding: 11px; background: var(--device); box-shadow: inset 0 0 0 1.5px var(--device-edge), 0 50px 100px -30px var(--brown-2-a45), 0 20px 40px -20px var(--ink-a35); }
 .phone__screen { position: relative; height: 100%; border-radius: 38px; overflow: hidden; background: var(--bg); }
