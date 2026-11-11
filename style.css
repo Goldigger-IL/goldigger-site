@@ -85,6 +85,7 @@ a { color: inherit; }
 .hero .actions { position: relative; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .offer .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 12px; }
 .offer .btn--ghost { background: transparent; color: var(--bg); box-shadow: inset 0 0 0 1.5px var(--paper-a55); }
+.story__cta { display: flex; justify-content: center; margin-top: 40px; }
 .stage { position: relative; height: clamp(560px, 72vw, 820px); margin-top: 56px; }
 .phone { position: relative; width: 300px; aspect-ratio: 996 / 2160; border-radius: 48px; padding: 11px; background: var(--device); box-shadow: inset 0 0 0 1.5px var(--device-edge), 0 50px 100px -30px var(--brown-2-a45), 0 20px 40px -20px var(--ink-a35); }
 .phone__screen { position: relative; height: 100%; border-radius: 38px; overflow: hidden; background: var(--bg); }
