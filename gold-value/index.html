@@ -90,6 +90,25 @@
           <p class="gv-how" id="how">הכניסו משקל כדי לראות את השווי.</p>
         </div>
         <p class="gv-src" id="src">טוענים את מחיר הזהב העדכני…</p>
+
+        <div class="gv-field">
+          <label for="cat">איזה תכשיט?</label>
+          <select class="gv-input" id="cat" name="cat" aria-describedby="cat-hint">
+            <option value="">כל התכשיטים</option>
+            <option value="chain">שרשרת</option>
+            <option value="ring">טבעת</option>
+            <option value="bracelet">צמיד</option>
+            <option value="earrings">עגילים</option>
+            <option value="pendant">תליון</option>
+          </select>
+          <p class="gv-hint" id="cat-hint">בשביל ההשוואה למחירים בגולדיגר. שווי הזהב לא תלוי בזה.</p>
+        </div>
+
+        <div class="gv-out gv-mkt" id="mkt" data-state="empty" role="status">
+          <span class="gv-lbl" id="mkt-lbl">כמה מקבלים על זה בגולדיגר</span>
+          <strong class="gv-big num" id="mkt-big">—</strong>
+          <p class="gv-how" id="mkt-how">טוענים את המחירים בגולדיגר…</p>
+        </div>
       </section>
 
       <section class="gv-card" aria-labelledby="c2-h">
@@ -112,6 +131,7 @@
         <div class="gv-cmp" id="cmp" data-tone="idle" role="status">
           <p class="gv-cmp-h" id="cmp-h">קודם מכניסים משקל.</p>
           <p class="gv-cmp-b" id="cmp-b"></p>
+          <p class="gv-cmp-b" id="cmp-m" hidden></p>
         </div>
 
         <p class="gv-guide" id="guide">חנות שקונה זהב ישן מוכרת אותו לרוב להתכה ומרוויחה מההפרש, ולכן תציע פחות משווי הזהב. כמה פחות משתנה מחנות לחנות, אז כדאי לקבל 2-3 הצעות ולהשוות למספר כאן.</p>
@@ -123,7 +143,7 @@
       </section>
     </form>
 
-    <p class="gv-note gv-center js-only">מה שמקלידים כאן נשאר אצלכם: החישוב נעשה בדפדפן ושום דבר לא נשלח. רק מחיר הזהב נטען מהשרת של גולדיגר.</p>
+    <p class="gv-note gv-center js-only">מה שמקלידים כאן נשאר אצלכם: המשקל והמחיר לא נשלחים לשום מקום. מהשרת של גולדיגר נטענים רק מחיר הזהב וממוצע המחירים באתר, לפי הדרגה וסוג התכשיט שבחרתם.</p>
 
     <section class="gv-sec" aria-labelledby="t-h">
       <h2 id="t-h">מחיר גרם זהב היום, לפי דרגה</h2>
