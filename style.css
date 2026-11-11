@@ -288,6 +288,8 @@ a { color: inherit; }
   .hero { padding-top: 116px; }
   .stage { margin-top: 40px; }
   .trust { grid-template-columns: minmax(0, 1fr); }
+  .card li { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 14px 0; font-size: 20px; }
+  .card li span, .card li b { font-size: 18px; }
   .stage { height: 600px; }
   .stage .phone { width: 250px; margin-left: -125px; }
   .chip { padding: 10px 14px 10px 10px; }
