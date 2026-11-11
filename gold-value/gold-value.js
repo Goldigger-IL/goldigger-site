@@ -10,7 +10,7 @@
   var FALLBACK = { gram24: 418.19, at: '2026-11-08T07:00:05Z' };
   var FINE = { '375': 0.375, '585': 0.585, '750': 0.75, '875': 0.875, '916': 0.916, '999': 0.999 };
   var MAX_GRAMS = 2000;
-  var APP = 'https://testflight.apple.com/join/HDmFeXHV';
+  var APP = 'https://app.goldigger.co.il/';
 
   var $ = function (id) { return document.getElementById(id); };
   var form = $('calc'), w = $('w'), wErr = $('w-err'), out = $('out'), big = $('big'), how = $('how'), src = $('src');
