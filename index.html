@@ -17,8 +17,8 @@
   "description":"קונים ומוכרים תכשיטי זהב בישראל, עם בדיקת מחיר לגרם מול ממוצע השוק על כל פריט."},
  {"@type":"WebSite","@id":"https://goldigger.co.il/#site","url":"https://goldigger.co.il/","name":"גולדיגר",
   "inLanguage":"he-IL","publisher":{"@id":"https://goldigger.co.il/#org"}},
- {"@type":"MobileApplication","@id":"https://goldigger.co.il/#app","name":"גולדיגר",
-  "operatingSystem":"iOS","applicationCategory":"ShoppingApplication","inLanguage":"he-IL",
+ {"@type":"WebApplication","@id":"https://goldigger.co.il/#app","name":"גולדיגר","url":"https://app.goldigger.co.il/",
+  "operatingSystem":"Any","applicationCategory":"ShoppingApplication","inLanguage":"he-IL",
   "publisher":{"@id":"https://goldigger.co.il/#org"},
   "description":"שוק תכשיטי זהב בישראל. על כל פריט מוצג המחיר לגרם מול ממוצע השוק באותה קטגוריה וקראט.",
   "featureList":["בדיקת מחיר לגרם מול ממוצע השוק","חנויות מאומתות","חיפוש לפי מרחק","התראה על פריט שחיפשתם"]}
@@ -39,7 +39,7 @@
     <div class="nav__bar">
       <a class="logo" href="#top"><i aria-hidden="true">G</i>גולדיגר<span class="visually-hidden">, לראש הדף</span></a>
       <div class="nav__end">
-        <a class="btn btn--gold" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener">להורדה</a>
+        <a class="btn btn--gold" href="https://app.goldigger.co.il/">כניסה</a>
         <div class="bloom" data-bloom>
           <button class="bloom__trigger js-only" type="button" aria-expanded="false" aria-controls="bloom-panel"><span class="bars" aria-hidden="true"><i></i><i></i></span>תפריט</button>
           <div class="bloom__panel" id="bloom-panel" role="dialog" aria-modal="true" aria-label="תפריט" hidden>
@@ -62,11 +62,11 @@
 <main id="main">
 <section class="hero" id="top" aria-labelledby="h1">
   <div class="wrap">
-    <a class="tag tag--link rv" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener"><b aria-hidden="true"></b>גרסת הבטא פתוחה עכשיו, לאייפון</a>
+    <a class="tag tag--link rv" href="https://app.goldigger.co.il/"><b aria-hidden="true"></b>עכשיו בדפדפן, בהמשך גם לאייפון ולאנדרואיד</a>
     <h1 id="h1" class="rv" style="--d:80ms">קונים זהב <span>בטוח.</span></h1>
     <p class="lead rv" style="--d:160ms">בגולדיגר אנחנו בודקים כל תכשיט לפי המחיר האמיתי לגרם בשוק, ומציגים לכם את כל הידע לפני הקנייה. כמו שצריך להיות.</p>
     <div class="actions rv" style="--d:240ms">
-      <a class="btn btn--gold" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener">להורדה דרך TestFlight</a>
+      <a class="btn btn--gold" href="https://app.goldigger.co.il/">לגולדיגר בדפדפן — בלי להתקין</a>
       <a class="btn btn--ghost" href="#judge">כך קורה הקסם</a>
     </div>
   </div>
@@ -201,6 +201,7 @@
         <div class="laptop"><div class="laptop__screen"><img class="on" src="img/s1-sell.webp" alt="" loading="lazy"><img src="img/s2-desk.webp" alt="" loading="lazy"><img src="img/s3-shuki.webp" alt="" loading="lazy"><img src="img/s4-table.webp" alt="" loading="lazy"><img src="img/s5-sales.webp" alt="" loading="lazy"><img src="img/s6-wanted.webp" alt="" loading="lazy"><img src="img/s6-shop.webp" alt="" loading="lazy"></div><span class="laptop__base"></span></div>
       </div>
     </div>
+    <div class="story__cta"><a class="btn btn--gold rv" href="https://app.goldigger.co.il/">לנהל את החנות מהמחשב</a></div>
   </div>
 </section>
 
@@ -250,7 +251,7 @@
   <div class="wrap">
     <h2 class="rv" id="offer-h">לקונים זה <span>חינם.</span> תמיד.</h2>
     <p class="rv offer__lead" style="--d:100ms">בלי מנוי, בלי דמי כניסה ובלי כרטיס אשראי. מחפשים, משווים עם שוקי ומדברים עם המוכר, בלי לשלם כלום.</p>
-    <div><a class="btn btn--gold rv" style="--d:240ms" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener">להורדה דרך TestFlight</a></div>
+    <div class="actions"><a class="btn btn--gold rv" style="--d:240ms" href="https://app.goldigger.co.il/">לגולדיגר בדפדפן — בלי להתקין</a></div>
     <p class="fine rv"><a href="terms/">התנאים המלאים</a></p>
   </div>
 </section>
@@ -261,8 +262,8 @@
       <span class="kicker rv">לחנויות ולסוחרים</span>
       <h2 class="h2 rv" id="shops-h" style="--d:80ms">הקונים כבר מחפשים.</h2>
       <p class="sub rv" style="--d:160ms">רשימה של מה שקונים חיפשו ולא מצאו, לפי סוג תכשיט. יש לכם? פונים אליהם בצ׳אט.</p>
-      <ol class="howto rv" style="--d:200ms"><li>מתקינים את TestFlight מהאפ סטור</li><li>לוחצים על הכפתור ומתקינים את גולדיגר</li><li>נרשמים כחנות ומעלים את התכשיטים</li></ol>
-      <a class="btn btn--ink rv" style="--d:240ms" href="https://testflight.apple.com/join/HDmFeXHV" rel="noopener">להורדה דרך TestFlight</a>
+      <ol class="howto rv" style="--d:200ms"><li>נכנסים לגולדיגר בדפדפן, מהמחשב או מהטלפון</li><li>נרשמים כחנות עם מספר הטלפון</li><li>מעלים את התכשיטים</li></ol>
+      <a class="btn btn--ink rv" style="--d:240ms" href="https://app.goldigger.co.il/">להצטרפות כחנות</a>
     </div>
     <div class="price-list rv-scale">
       <div><p><b>3 החודשים הראשונים</b><span>כל מה שיש ב-Pro</span></p><em class="num big">0 ₪</em></div>
