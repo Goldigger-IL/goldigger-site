@@ -16,3 +16,6 @@
 .gpn-foot { appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: none; }
 .gpn-foot:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .gpn-bar { transition: none; } }
+/* הבאנר צף מעל תחתית הדף: מרווח כדי שרכיב בפוקוס לא יוסתר מאחוריו (WCAG 2.4.11) */
+html:has(.gpn-bar) { scroll-padding-bottom: 200px; }
+body:has(.gpn-bar) { padding-bottom: 200px; }

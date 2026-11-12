@@ -49,7 +49,7 @@
     $('#price').textContent = ils(p); $('#per').textContent = ils(p / GRAMS);
     if ($('#v-title').textContent !== v.title) $('#v-title').textContent = v.title;
     if ($('#v-detail').textContent !== v.detail) $('#v-detail').textContent = v.detail;
-    range.setAttribute('aria-valuetext', ils(p) + ', ' + v.title);
+    range.setAttribute('aria-valuetext', ils(p) + ', ' + v.title + ', ' + v.detail);
     if (v.level !== level) { level = v.level; shuki.dataset.level = level; verdict.dataset.tone = v.tone; shuki.setAttribute('aria-label', 'שוקי: ' + v.title); react(); }
   }
   // ההדגמה של שוקי: 'waiting' (עוד לא הגענו אליו) → 'playing' → 'off'. נגיעה במחוון או סוף ההדגמה = 'off', ולא חוזרים
