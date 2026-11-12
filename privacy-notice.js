@@ -107,7 +107,8 @@
     a.href = policyUrl;
     r.appendChild(a);
     bar.appendChild(r);
-    document.body.appendChild(bar);
+    var skip = document.querySelector('.skip');
+    document.body.insertBefore(bar, skip ? skip.nextSibling : document.body.firstChild);
 
     // Esc סוגר את הסרגל (החלון הפתוח סוגר את עצמו קודם). סגירה נחשבת "ראיתי".
     document.addEventListener('keydown', function (e) {
