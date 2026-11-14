@@ -19,3 +19,8 @@
 /* הבאנר צף מעל תחתית הדף: מרווח כדי שרכיב בפוקוס לא יוסתר מאחוריו (WCAG 2.4.11) */
 html:has(.gpn-bar) { scroll-padding-bottom: 200px; }
 body:has(.gpn-bar) { padding-bottom: 200px; }
+/* במחשב: הבאנר בפינה ולא באמצע, כדי שלא יכסה את הכפתורים הראשיים במסכים נמוכים (סקירת UX 13.11, אישר ידידיה) */
+@media (min-width: 1100px) {
+  .gpn-bar { inset-inline: auto 16px; margin-inline: 0; max-width: 360px; bottom: 16px; padding: 12px 14px; }
+  .gpn-bar .gpn-row { gap: 8px; }
+}
