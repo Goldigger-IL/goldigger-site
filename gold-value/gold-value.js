@@ -47,7 +47,7 @@
   function parseGrams(raw) {
     var s = raw.replace(/\s/g, '').replace(',', '.');
     if (s === '') return {};
-    if (!/^\d{0,4}(\.\d{0,3})?$/.test(s) || s === '.') return { error: 'כתבו רק מספר, למשל 7.5' };
+    if (!/^\d{0,7}(\.\d{0,3})?$/.test(s) || s === '.') return { error: 'כתבו רק מספר, למשל 7.5' };
     var v = parseFloat(s);
     if (!(v > 0)) return { error: 'המשקל צריך להיות גדול מאפס' };
     if (v > MAX_GRAMS) return { error: 'זה יותר מ-2 קילו. בדקו שכתבתם בגרמים' };
