@@ -200,6 +200,8 @@ a { color: inherit; }
 .step { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; padding-block: 40px; opacity: 1; transition: opacity 350ms var(--ease); }
 .steps { margin-block: -30vh; }
 .step.on { opacity: 1; }
+/* .steps נמשכת למעלה (margin שלילי) כדי שהטלפון הצמוד יסתנכרן עם השלבים, והעיגול של שלב 1 עלה מעל הכותרת והוסתר. מוסיפים רווח בראש השלב הראשון כדי שהעיגול ייפול מתחת לכותרת */
+.step:first-child { padding-top: 200px; }
 .step__n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--gold-deep); font-weight: 800; margin-bottom: 20px; transition: background-color 400ms ease, color 400ms ease; }
 .step.on .step__n { background: var(--gold); color: var(--gold-ink); }
 .step h3 { font-size: clamp(34px, 4.4vw, 58px); }
@@ -273,6 +275,7 @@ a { color: inherit; }
   .judge__grid { margin-top: 36px; }
   .story__pin { display: none; }
   .step { min-height: 0; opacity: 1; padding-block: 36px; }
+  .step:first-child { padding-top: 36px; }
   .steps { margin-block: 0; }
   .step__shot { display: block; margin-top: 28px; }
   .step__shot .phone { width: min(260px, 70vw); margin-inline: auto; }
