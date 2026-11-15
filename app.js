@@ -117,10 +117,44 @@
     if (scroll) (who === 'buy' ? buySec : sellSec).scrollIntoView({ block: 'start' });
   }
   if (whoTrack && buySec && sellSec) {
-    whoBtns.forEach((b) => b.addEventListener('click', () => setWho(b.dataset.who, false)));
+    // המתג בראש הדף: בחירה מעבירה ישר לסיפור המתאים
+    whoBtns.forEach((b) => b.addEventListener('click', () => setWho(b.dataset.who, true)));
+    // קישור ל"האפליקציה" תמיד פותח את סיפור הקונים
+    $$('a[href="#story"]').forEach((a) => a.addEventListener('click', () => setWho('buy', false)));
     setWho(location.hash === '#story-sell' ? 'sell' : 'buy', location.hash === '#story-sell');
   }
   syncStory();
+
+  // ---- בטלפון: השלבים בכרטיסים שמחליקים הצידה. "הקודם" / "הבא" ומונה, כדי שאפשר יהיה גם בלי להחליק (WCAG 2.5.7)
+  const narrow = matchMedia('(max-width: 900px)');
+  stories.forEach((st) => {
+    const list = $('.steps', st.sec), n = st.steps.length;
+    if (!list || !n) return;
+    const bar = document.createElement('div');
+    bar.className = 'steps__nav';
+    bar.innerHTML = '<button type="button" class="steps__btn" data-d="-1">הקודם</button><span class="steps__count" aria-live="polite"></span><button type="button" class="steps__btn" data-d="1">הבא</button>';
+    list.after(bar);
+    const count = $('.steps__count', bar), [prev, next] = $$('.steps__btn', bar);
+    let idx = 0, t;
+    const label = () => { count.textContent = 'שלב ' + (idx + 1) + ' מתוך ' + n; prev.disabled = idx === 0; next.disabled = idx === n - 1; };
+    const go = (i) => { idx = Math.max(0, Math.min(n - 1, i)); st.steps[idx].scrollIntoView({ inline: 'center', block: 'nearest', behavior: still.matches ? 'auto' : 'smooth' }); label(); };
+    bar.addEventListener('click', (e) => { const b = e.target.closest('.steps__btn'); if (b) go(idx + +b.dataset.d); });
+    list.addEventListener('scroll', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const c = list.getBoundingClientRect(), mid = c.left + c.width / 2;
+        let best = 0, bd = Infinity;
+        st.steps.forEach((s, i) => { const r = s.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = i; } });
+        if (best !== idx) { idx = best; label(); }
+      }, 90);
+    }, { passive: true });
+    // בטלפון הרשימה נגללת הצידה, ולכן אפשר להגיע אליה גם במקלדת
+    const mode = () => {
+      if (narrow.matches) { list.tabIndex = 0; list.setAttribute('aria-label', 'השלבים. מחליקים הצידה, או בכפתורי הקודם והבא'); }
+      else { list.removeAttribute('tabindex'); list.removeAttribute('aria-label'); }
+    };
+    narrow.addEventListener('change', mode); mode(); label();
+  });
 
   // (הספירה לאחור למבצע הוסרה 2.11.2026: לקונים זה חינם, תמיד)
 
