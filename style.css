@@ -197,7 +197,7 @@ a { color: inherit; }
 .story__pin .phone__screen img.on { opacity: 1; transform: none; }
 .story__glow { position: absolute; inset: 10% 0; border-radius: 50%; background: radial-gradient(closest-side, var(--gold2-a45), transparent); z-index: -1; transition: background 600ms ease; }
 .steps { list-style: none; margin: 0; padding: 0; }
-.step { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-block: 40px; opacity: 1; transition: opacity 350ms var(--ease); }
+.step { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; padding-block: 40px; opacity: 1; transition: opacity 350ms var(--ease); }
 .steps { margin-block: -30vh; }
 .step.on { opacity: 1; }
 .step__n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--gold-deep); font-weight: 800; margin-bottom: 20px; transition: background-color 400ms ease, color 400ms ease; }
@@ -267,7 +267,6 @@ a { color: inherit; }
 .js .rv.in { opacity: 1; transform: none; }
 .js .rv-scale { opacity: 0; transform: scale(0.94); transition: opacity 900ms var(--ease), transform 1100ms var(--ease); }
 .js .rv-scale.in { opacity: 1; transform: none; }
-.js .hero .rv { transform: translateY(24px); }
 
 @media (max-width: 900px) {
   .judge__grid, .story__grid, .vs, .shops { grid-template-columns: minmax(0, 1fr); }
@@ -371,4 +370,32 @@ html:not(.js) .story__pin .phone__screen img.on, html:not(.js) .story__pin .lapt
   .nav__end { gap: 6px; }
   .nav__end .btn { padding: 0 12px; font-size: 15px; }
   .bloom__trigger { min-width: 0; padding: 0 12px; font-size: 15px; gap: 6px; }
+}
+
+/* ---- סקירת UX 15.11 (אישר ידידיה) ---- */
+/* ב: ניווט גלוי במחשב רחב; בטלפון ובטאבלט נשאר התפריט */
+.topnav { display: none; }
+@media (min-width: 1100px) {
+  .nav__bar { justify-content: flex-start; }
+  .topnav { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); margin-inline-start: 28px; }
+  .topnav a { text-decoration: none; font-weight: 600; font-size: 17px; color: var(--ink); padding: 10px 2px; }
+  .topnav a:hover { color: var(--gold-deep); }
+  .nav__end { margin-inline-start: auto; }
+  .bloom { display: none; }
+}
+/* ג: המתג קונה / חנות בראש הדף */
+.hero .who { padding: 28px 0 0; }
+/* א: בטלפון השלבים בכרטיסים שמחליקים הצידה, עם "הקודם" / "הבא" ומונה (WCAG 2.5.7) */
+.steps__nav { display: none; }
+@media (max-width: 900px) {
+  .story .steps { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin-inline: calc(var(--pad) * -1); padding: 4px var(--pad) 12px; scroll-padding-inline: var(--pad); scrollbar-width: none; }
+  .story .steps::-webkit-scrollbar { display: none; }
+  .story .step { flex: 0 0 84%; scroll-snap-align: center; padding: 20px; background: var(--cream); border-radius: 24px; }
+  .story .step h3 { font-size: 30px; }
+  .js .story .step:not(.on) :is(h3, p) { opacity: 1; }
+  .story .step .step__n { background: var(--gold); color: var(--gold-ink); }
+  .steps__nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+  .steps__btn { min-height: 44px; min-width: 88px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--ink-a06); font: inherit; font-size: 17px; font-weight: 700; color: var(--ink); cursor: pointer; }
+  .steps__btn:disabled { opacity: 0.4; cursor: default; }
+  .steps__count { font-weight: 700; color: var(--ink-2); }
 }
