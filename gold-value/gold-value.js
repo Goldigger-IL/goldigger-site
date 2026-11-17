@@ -2,7 +2,7 @@
    החישוב כולו בדפדפן. נשלחות לשרת רק שתי בקשות: מחיר הזהב האחרון (טבלה ציבורית לקריאה),
    וממוצע המחירים בגולדיגר לפי דרגה וסוג תכשיט (site_price_estimate: אחוז ממוצע מעל שווי הזהב, רק מ-10 פריטים ומעלה).
    "מחיר גולדיגר" מוצג רק מעסקאות שנמכרו (sold), לא ממחירים מבוקשים. עד 10 עסקאות: רק שווי הזהב (מחיר התכה),
-   וריבוע שממליץ למכור את התכשיט כוינטג׳ בגולדיגר (החלטת ידידיה, 17.11.2026).
+   וריבוע שממליץ למכור את התכשיט כוינטאג׳ בגולדיגר (החלטת ידידיה, 17.11.2026).
    מה שהמשתמש מקליד (משקל, מחיר) לא נשלח לשום מקום ולא נשמר. */
 (function () {
   'use strict';
@@ -86,7 +86,7 @@
     return { perGram: price.gram24 * fine * (1 + x.premium), n: x.n, premium: x.premium };
   }
 
-  var VINTAGE = 'בחנות משלמים לכם רק על הזהב, כי התכשיט הולך להתכה. בגולדיגר מוכרים אותו כתכשיט וינטג׳ לאנשים שמחפשים בדיוק אותו, ואפשר לבקש מחיר גבוה יותר משווי הזהב.';
+  var HEADLINE = 'אתה מחזיק בוינטאג׳ יקר ערך.';
 
   // הריבוע "למכור בגולדיגר": תמיד ממליץ לפרסם. כשיש 10 עסקאות ומעלה, מציג גם את מחיר גולדיגר מול מחיר ההתכה.
   function showMarket(fine, grams) {
@@ -94,14 +94,15 @@
     var est = marketPerGram(fine);
     if (!est) {
       mkt.dataset.state = 'none';
-      mktLbl.textContent = 'למכור כתכשיט וינטג׳, לא להתכה';
+      mktLbl.textContent = HEADLINE;
       mktBig.hidden = true;
-      if (mktHow.textContent !== VINTAGE) mktHow.textContent = VINTAGE; // בלי לשנות סתם: קורא מסך מקריא כל שינוי ב-role=status
+      mktHow.hidden = true; // עד 10 עסקאות: רק הכותרת והכפתור (החלטת ידידיה, 17.11.2026)
       return;
     }
     mkt.dataset.state = 'ok';
     mktLbl.textContent = 'מחיר גולדיגר';
     mktBig.hidden = false;
+    mktHow.hidden = false;
     mktBig.textContent = grams ? money(est.perGram * grams) : money(est.perGram) + ' לגרם';
     var parts = ['הממוצע שבו נמכרו בגולדיגר תכשיטים דומים: ', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' עסקאות מחצי השנה האחרונה.'];
     if (est.premium > 0) parts.push(' זה ', { n: percent(est.premium) }, ' יותר משווי הזהב (מחיר ההתכה), שהוא בערך מה שמשלמים בחנות.');

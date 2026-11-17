@@ -77,4 +77,7 @@
 /* ממוצע המחירים בגולדיגר: אותו כרטיס כמו שווי הזהב, בצבע שונה כדי שלא יתבלבלו בין השניים */
 .gv-mkt { margin-top: 4px; background: var(--card, #fff); border: 2px solid var(--gold); }
 .gv-mkt[data-state="none"] .gv-big, .gv-mkt[data-state="error"] .gv-big { color: var(--muted); }
+/* עד 10 עסקאות: הכותרת "אתה מחזיק בוינטאג׳ יקר ערך" היא העיקר בריבוע */
+.gv-mkt[data-state="none"] .gv-lbl { font-size: clamp(24px, 3.2vw, 30px); font-weight: 800; line-height: 1.25; color: var(--ink); }
+.gv-mkt[data-state="none"] .gv-cta { margin-top: 14px; }
 select.gv-input { appearance: auto; }
