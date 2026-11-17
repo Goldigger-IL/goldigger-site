@@ -1,19 +1,24 @@
 /* מחשבון "כמה שווה הזהב שלי".
    החישוב כולו בדפדפן. נשלחות לשרת רק שתי בקשות: מחיר הזהב האחרון (טבלה ציבורית לקריאה),
    וממוצע המחירים בגולדיגר לפי דרגה וסוג תכשיט (site_price_estimate: אחוז ממוצע מעל שווי הזהב, רק מ-10 פריטים ומעלה).
+   "מחיר גולדיגר" מוצג רק מעסקאות שנמכרו (sold), לא ממחירים מבוקשים. עד 10 עסקאות: רק שווי הזהב (מחיר התכה),
+   וריבוע שממליץ למכור את התכשיט כוינטאג׳ בגולדיגר (החלטת ידידיה, 17.11.2026).
    מה שהמשתמש מקליד (משקל, מחיר) לא נשלח לשום מקום ולא נשמר. */
 (function () {
   'use strict';
 
   var API = 'https://fmfrhmfulnianzjhdkey.supabase.co/rest/v1/gold_ticks?select=at,gram24_ils&order=at.desc&limit=1';
   var KEY = 'sb_publishable_Gn6Euzy5rG6opj1CQOuwrw_Z3P_3VFp'; // המפתח הציבורי, כמו באפליקציה. מה שמגן על הנתונים הוא RLS בשרת.
-  // גיבוי כשאין חיבור לשרת. אותם מספרים כתובים בטבלה ב-HTML. לעדכן את שניהם מדי פעם.
-  var FALLBACK = { gram24: 418.19, at: '2026-11-08T07:00:05Z' };
+  // גיבוי כשאין חיבור לשרת: המחיר שכתוב בטבלה ב-HTML (data-gram24, data-at). functions/gold-value/index.js מעדכן אותו בכל טעינה.
+  var FALLBACK = { gram24: 402.46, at: '2026-11-17T19:00:05Z' };
+  var tb0 = document.getElementById('t-body'), g0 = tb0 ? Number(tb0.getAttribute('data-gram24')) : NaN, at0 = tb0 ? tb0.getAttribute('data-at') : '';
+  if (g0 > 50 && g0 < 5000 && at0 && !isNaN(Date.parse(at0))) FALLBACK = { gram24: g0, at: at0 };
   var FINE = { '375': 0.375, '585': 0.585, '750': 0.75, '875': 0.875, '916': 0.916, '999': 0.999 };
   var MAX_GRAMS = 2000;
   var MKT_API = 'https://fmfrhmfulnianzjhdkey.supabase.co/rest/v1/rpc/site_price_estimate';
   var KARAT = { '375': 9, '585': 14, '750': 18, '875': 21, '916': 22, '999': 24 };
   var APP = 'https://app.goldigger.co.il/';
+  var SELL = APP + 'sell'; // מי שלא מחובר רואה שם הרשמה, ואחריה חוזר ישר להעלאת התכשיט
 
   var $ = function (id) { return document.getElementById(id); };
   var form = $('calc'), w = $('w'), wErr = $('w-err'), out = $('out'), big = $('big'), how = $('how'), src = $('src');
@@ -73,32 +78,36 @@
 
   function mktKey() { return picked('fine', '585') + '|' + (cat ? cat.value : ''); }
 
-  // מחיר ממוצע לגרם בגולדיגר, לפי מחיר הזהב של היום: {perGram, n, sold} או null כשאין מספיק נתונים
+  // מחיר גולדיגר לגרם (ממוצע העסקאות), לפי מחיר הזהב של היום: {perGram, n, premium} או null כשאין 10 עסקאות
   function marketPerGram(fine) {
     var m = market[mktKey()];
-    if (!m) return null;
-    var x = m.sold || m.asking;
+    var x = m && m.sold;
     if (!x || typeof x.premium !== 'number') return null;
-    return { perGram: price.gram24 * fine * (1 + x.premium), n: x.n, sold: !!m.sold, min: m.min || 10 };
+    return { perGram: price.gram24 * fine * (1 + x.premium), n: x.n, premium: x.premium };
   }
 
+  var HEADLINE = 'אתם מחזיקים בוינטאג׳ יקר ערך.';
+
+  // הריבוע "למכור בגולדיגר": תמיד ממליץ לפרסם. כשיש 10 עסקאות ומעלה, מציג גם את מחיר גולדיגר מול מחיר ההתכה.
   function showMarket(fine, grams) {
     if (!mkt) return;
-    var key = mktKey(), m = market[key], est = marketPerGram(fine);
-    if (m === undefined) { mkt.dataset.state = 'empty'; mktBig.textContent = '—'; mktHow.textContent = 'טוענים את המחירים בגולדיגר…'; return; }
-    if (m === null) { mkt.dataset.state = 'error'; mktBig.textContent = '—'; mktHow.textContent = 'לא הצלחנו לטעון את המחירים בגולדיגר כרגע. שווי הזהב למעלה מעודכן.'; return; }
+    var est = marketPerGram(fine);
     if (!est) {
       mkt.dataset.state = 'none';
-      mktLbl.textContent = 'כמה מקבלים על זה בגולדיגר';
-      mktBig.textContent = '—';
-      fill(mktHow, ['אין עדיין מספיק נתונים בגולדיגר על תכשיטים כאלה. אנחנו מציגים ממוצע רק כשיש לפחות ', { n: String(m.min || 10) }, ' פריטים, כדי שמוכר אחד לא ישפיע עליו.']);
+      mktLbl.textContent = HEADLINE;
+      mktBig.hidden = true;
+      mktHow.hidden = true; // עד 10 עסקאות: רק הכותרת והכפתור (החלטת ידידיה, 17.11.2026)
       return;
     }
     mkt.dataset.state = 'ok';
-    mktLbl.textContent = est.sold ? 'כמה מקבלים על זה בגולדיגר' : 'כמה מבקשים על זה בגולדיגר';
+    mktLbl.textContent = 'מחיר גולדיגר';
+    mktBig.hidden = false;
+    mktHow.hidden = false;
     mktBig.textContent = grams ? money(est.perGram * grams) : money(est.perGram) + ' לגרם';
-    if (est.sold) fill(mktHow, ['תכשיטים דומים נמכרו בגולדיגר בממוצע ב-', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' עסקאות מחצי השנה האחרונה. זו הערכה, לא הצעת מחיר.']);
-    else fill(mktHow, ['מוכרים בגולדיגר מבקשים על תכשיטים דומים בממוצע ', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' פריטים. זה מחיר מבוקש, לא מחיר שבו נמכרו.']);
+    var parts = ['הממוצע שבו נמכרו בגולדיגר תכשיטים דומים: ', { n: money(est.perGram) }, ' לגרם, לפי ', { n: String(est.n) }, ' עסקאות מחצי השנה האחרונה.'];
+    if (est.premium > 0) parts.push(' זה ', { n: percent(est.premium) }, ' יותר משווי הזהב (מחיר ההתכה), שהוא בערך מה שמשלמים בחנות.');
+    parts.push(' הערכה, לא הצעת מחיר.');
+    fill(mktHow, parts);
   }
 
   function loadMarket() {
@@ -110,7 +119,7 @@
     if (cat && cat.value) body.p_category = cat.value;
     fetch(MKT_API, { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       .then(function (res) { if (!res.ok) throw new Error('http ' + res.status); return res.json(); })
-      .then(function (d) { market[key] = d && typeof d === 'object' ? d : { sold: null, asking: null }; })
+      .then(function (d) { market[key] = d && typeof d === 'object' ? d : { sold: null }; })
       .catch(function () { market[key] = null; })
       .then(update);
   }
@@ -140,7 +149,7 @@
       : 'בתכשיט חדש משלמים גם על עבודה, עיצוב, מע״מ ורווח של המוכר, ולכן המחיר תמיד מעל שווי הזהב. השאלה היא בכמה, וזה בדיוק מה ששוקי בודק בגולדיגר.';
     cta.textContent = sell ? 'לפרסם את התכשיט בגולדיגר' : 'לחפש תכשיטים עם שוקי';
     ctaFine.textContent = sell ? 'פריט אחד בחינם. קונים פונים אליכם בצ׳אט.' : 'לקונים גולדיגר חינם, תמיד.';
-    cta.href = APP;
+    cta.href = sell ? SELL : APP;
     setErr(p, pErr, got.error);
     cmpM.hidden = true;
     cmpM.textContent = '';
@@ -171,7 +180,7 @@
     }
     // מול הממוצע בגולדיגר: 300 ₪ לגרם יכול להיות "יקר" מול שווי הזהב, ועדיין מחיר רגיל או טוב באתר
     if (est && grams) {
-      var avg = est.perGram * grams, r2 = got.value / avg, word = est.sold ? 'הממוצע שבו נמכרים תכשיטים דומים בגולדיגר' : 'הממוצע שמבקשים בגולדיגר על תכשיטים דומים';
+      var avg = est.perGram * grams, r2 = got.value / avg, word = 'מחיר גולדיגר';
       cmpM.hidden = false;
       if (Math.abs(r2 - 1) < 0.05) fill(cmpM, ['זה בערך ', word, ' (', { n: money(avg) }, ').']);
       else if (r2 > 1) fill(cmpM, ['זה ', { n: percent(r2 - 1) }, ' מעל ', word, ' (', { n: money(avg) }, ').']);
