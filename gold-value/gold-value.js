@@ -86,7 +86,7 @@
     return { perGram: price.gram24 * fine * (1 + x.premium), n: x.n, premium: x.premium };
   }
 
-  var HEADLINE = 'אתה מחזיק בוינטאג׳ יקר ערך.';
+  var HEADLINE = 'אתם מחזיקים בוינטאג׳ יקר ערך.';
 
   // הריבוע "למכור בגולדיגר": תמיד ממליץ לפרסם. כשיש 10 עסקאות ומעלה, מציג גם את מחיר גולדיגר מול מחיר ההתכה.
   function showMarket(fine, grams) {
